@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://busok45foaq6o"]
+
+[ext_resource type="Texture2D" uid="uid://dkl0qaxblbepb" path="res://Art/Characters/Epiphany/Character Art/Solei placeholder.jpg" id="1_qyatw"]
+
+[node name="Epiphany" type="CharacterBody2D"]
+scale = Vector2(0.3, 0.3)
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_qyatw")

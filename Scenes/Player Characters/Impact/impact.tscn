@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bdgv2jvfr3q45"]
+
+[ext_resource type="Texture2D" uid="uid://cbfg0euku63ly" path="res://Art/Characters/Impact/Thing.jpg" id="1_md7ar"]
+
+[node name="Impact" type="CharacterBody2D"]
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("1_md7ar")

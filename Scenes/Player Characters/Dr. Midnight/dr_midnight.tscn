@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8fcxtoehvygu"]
+
+[ext_resource type="Texture2D" uid="uid://dyc32p3ugr6o6" path="res://Art/Characters/Dr. Midnight/Dr. Midnight Stand In.jpg" id="1_jhl2s"]
+
+[node name="Dr Midnight" type="CharacterBody2D"]
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_jhl2s")

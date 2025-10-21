@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://bb78kb4w40iq1"]
+
+[node name="Battle UI" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1150.0
+offset_bottom = 167.0
+
+[node name="ItemList" type="ItemList" parent="."]
+layout_mode = 0
+offset_right = 151.0
+offset_bottom = 167.0
+item_count = 4
+item_0/text = "Attack"
+item_1/text = "Defend"
+item_2/text = "Items"
+item_3/text = "Run"
+
+[node name="Text Box" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 151.0
+offset_right = 1149.0
+offset_bottom = 167.0
+
+[node name="Text Box Background" type="ItemList" parent="Text Box"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Text Box"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "THIS IS DEFAULT TEXT"

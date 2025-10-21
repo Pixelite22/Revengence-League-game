@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cpknl7ng3m7ro"]
+
+[ext_resource type="Texture2D" uid="uid://dgiooadlasfh" path="res://Art/Characters/Spindle/Best Jeanest.jpg" id="1_xqyil"]
+
+[node name="Spindle" type="CharacterBody2D"]
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_xqyil")

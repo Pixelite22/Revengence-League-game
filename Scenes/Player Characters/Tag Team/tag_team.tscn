@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dux85r8cuyj8o"]
+
+[ext_resource type="Texture2D" uid="uid://c0gpp6n0r2kve" path="res://Art/Characters/Tag Team/Tag Team Placeholder.jpg" id="1_lrb4j"]
+
+[node name="Tag Team" type="CharacterBody2D"]
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_lrb4j")

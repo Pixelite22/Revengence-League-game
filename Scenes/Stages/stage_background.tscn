@@ -1,0 +1,101 @@
+[gd_scene load_steps=15 format=3 uid="uid://cdo15u57dafsw"]
+
+[ext_resource type="Texture2D" uid="uid://bn5xwhigieds3" path="res://Art/Backgrounds/mvc-stage-neo-stpetersburg-ezgif.com-gif-to-sprite-converter.png" id="1_ptud5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qh3xd"]
+atlas = ExtResource("1_ptud5")
+region = Rect2(0, 0, 768, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t84cq"]
+atlas = ExtResource("1_ptud5")
+region = Rect2(768, 0, 768, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hc0ib"]
+atlas = ExtResource("1_ptud5")
+region = Rect2(1536, 0, 768, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gstjl"]
+atlas = ExtResource("1_ptud5")
+region = Rect2(2304, 0, 768, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dsywd"]
+atlas = ExtResource("1_ptud5")
+region = Rect2(3072, 0, 768, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ddq7"]
+atlas = ExtResource("1_ptud5")
+region = Rect2(3840, 0, 768, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_70s0t"]
+atlas = ExtResource("1_ptud5")
+region = Rect2(4608, 0, 768, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_owxxt"]
+atlas = ExtResource("1_ptud5")
+region = Rect2(5376, 0, 768, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k2ppw"]
+atlas = ExtResource("1_ptud5")
+region = Rect2(6144, 0, 768, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qia34"]
+atlas = ExtResource("1_ptud5")
+region = Rect2(6912, 0, 768, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b1dwc"]
+atlas = ExtResource("1_ptud5")
+region = Rect2(7680, 0, 768, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dm0sm"]
+atlas = ExtResource("1_ptud5")
+region = Rect2(8448, 0, 768, 480)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o6q5l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qh3xd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t84cq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hc0ib")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gstjl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dsywd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ddq7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_70s0t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_owxxt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k2ppw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qia34")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b1dwc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dm0sm")
+}],
+"loop": true,
+"name": &"St. Petersburg",
+"speed": 5.0
+}]
+
+[node name="Stage Background" type="AnimatedSprite2D"]
+scale = Vector2(1.5, 1.35)
+sprite_frames = SubResource("SpriteFrames_o6q5l")
+animation = &"St. Petersburg"
+frame_progress = 0.735359
