@@ -1,5 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://s3ejndc4wsld"]
+[gd_scene load_steps=11 format=3 uid="uid://s3ejndc4wsld"]
 
+[ext_resource type="Script" uid="uid://doppeanuqf6c6" path="res://Scenes/Main Scene/main.gd" id="1_1al0i"]
 [ext_resource type="PackedScene" uid="uid://cdo15u57dafsw" path="res://Scenes/Stages/stage_background.tscn" id="1_gka8t"]
 [ext_resource type="Script" uid="uid://thylrqclbv11" path="res://Scenes/Stages/stage_background.gd" id="2_2r00m"]
 [ext_resource type="PackedScene" uid="uid://bb78kb4w40iq1" path="res://Scenes/UI/battle_ui.tscn" id="2_k7g0x"]
@@ -11,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://cpknl7ng3m7ro" path="res://Scenes/Player Characters/Spindle/spindle.tscn" id="9_arijm"]
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_1al0i")
 
 [node name="Stage Background" parent="." instance=ExtResource("1_gka8t")]
 position = Vector2(576, 324)
@@ -35,13 +37,13 @@ grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="P1 Mark" type="Marker2D" parent="Character Placement/Player Placement"]
-position = Vector2(431, 0)
+position = Vector2(431, -25)
 
 [node name="P2 Mark" type="Marker2D" parent="Character Placement/Player Placement"]
-position = Vector2(287, 0)
+position = Vector2(287, -20)
 
 [node name="P3 Mark" type="Marker2D" parent="Character Placement/Player Placement"]
-position = Vector2(143, 0)
+position = Vector2(143, -15)
 
 [node name="Enemy Placement" type="Control" parent="Character Placement"]
 anchors_preset = 0
@@ -50,29 +52,29 @@ offset_right = 1150.0
 offset_bottom = 56.0
 
 [node name="E1 Mark" type="Marker2D" parent="Character Placement/Enemy Placement"]
-position = Vector2(143, 0)
+position = Vector2(143, -25)
 
 [node name="E2 Mark" type="Marker2D" parent="Character Placement/Enemy Placement"]
-position = Vector2(287, 0)
+position = Vector2(287, -20)
 
 [node name="E3 Mark" type="Marker2D" parent="Character Placement/Enemy Placement"]
-position = Vector2(431, 0)
+position = Vector2(431, -15)
 
 [node name="Tag Team" parent="." instance=ExtResource("4_1al0i")]
-position = Vector2(981, 550)
+position = Vector2(-177, 198)
 
 [node name="Dr Midnight" parent="." instance=ExtResource("5_j4e7m")]
-position = Vector2(854, 514)
+position = Vector2(-102, 264)
 
 [node name="Epiphany" parent="." instance=ExtResource("6_g5fwm")]
-position = Vector2(144, 509)
+position = Vector2(-76, 569)
 
 [node name="Impact" parent="." instance=ExtResource("7_bvd32")]
-position = Vector2(716, 525)
+position = Vector2(-80.9999, 419)
 rotation = 0.00575567
 
 [node name="Red Rocket" parent="." instance=ExtResource("8_6sxxr")]
-position = Vector2(248, 354)
+position = Vector2(-108, 197)
 
 [node name="Spindle" parent="." instance=ExtResource("9_arijm")]
-position = Vector2(435, 480)
+position = Vector2(-90, 9)
