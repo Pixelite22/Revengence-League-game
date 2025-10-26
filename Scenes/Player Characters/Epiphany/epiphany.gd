@@ -4,4 +4,4 @@ extends CharacterBody2D
 
 
 func _ready() -> void:
-	sprite.play("Standing")
+	pass

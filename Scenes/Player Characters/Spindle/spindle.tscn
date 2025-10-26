@@ -1,9 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://cpknl7ng3m7ro"]
+[gd_scene load_steps=3 format=3 uid="uid://cpknl7ng3m7ro"]
 
-[ext_resource type="Texture2D" uid="uid://dgiooadlasfh" path="res://Art/Characters/Spindle/Best Jeanest.jpg" id="1_xqyil"]
+[ext_resource type="Script" uid="uid://cgm74i6d5nhne" path="res://Scenes/Player Characters/player.gd" id="1_lds7e"]
+[ext_resource type="Resource" uid="uid://b3nnijoj04rdb" path="res://Resources/Players/Actural Resources/Spindle.tres" id="2_drpf5"]
 
 [node name="Spindle" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_lds7e")
+hero_stats = ExtResource("2_drpf5")
 
-[node name="Sprite" type="Sprite2D" parent="."]
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("1_xqyil")
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+animation = &""

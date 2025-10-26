@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Hero" load_steps=3 format=3 uid="uid://b3nnijoj04rdb"]
+
+[ext_resource type="Script" uid="uid://datlkv8a5uak0" path="res://Resources/Players/Hero_res.gd" id="1_n3nto"]
+[ext_resource type="SpriteFrames" uid="uid://ch6vbc5521u7" path="res://Art/Characters/Spindle/Spindle Sprite Frames/Spindle Sprite Frames.tres" id="2_xtm3s"]
+
+[resource]
+script = ExtResource("1_n3nto")
+name = ""
+max_health = 1
+base_strength = 1
+base_defense = 1
+base_speed = -90.0
+sprites = ExtResource("2_xtm3s")
+metadata/_custom_type_script = "uid://datlkv8a5uak0"

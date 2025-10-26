@@ -1,39 +1,15 @@
-[gd_scene load_steps=8 format=3 uid="uid://busok45foaq6o"]
+[gd_scene load_steps=4 format=3 uid="uid://busok45foaq6o"]
 
-[ext_resource type="Texture2D" uid="uid://d4d0xbioydrpc" path="res://Art/Characters/Epiphany/Character Art/Standing/Standing_0-1.png" id="1_gwkun"]
-[ext_resource type="Script" uid="uid://wvfwofheotod" path="res://Scenes/Player Characters/Epiphany/epiphany.gd" id="1_v5mbf"]
-[ext_resource type="Texture2D" uid="uid://dyhrkem8nidn" path="res://Art/Characters/Epiphany/Character Art/Standing/Standing_0-2.png" id="2_v5mbf"]
-[ext_resource type="Texture2D" uid="uid://qqbmkmp8b83d" path="res://Art/Characters/Epiphany/Character Art/Standing/Standing_0-3.png" id="3_hstfa"]
-[ext_resource type="Texture2D" uid="uid://bcr3xngppmgx7" path="res://Art/Characters/Epiphany/Character Art/Standing/Standing_0-4.png" id="4_6shm8"]
-[ext_resource type="Texture2D" uid="uid://1o7ssnvsq574" path="res://Art/Characters/Epiphany/Character Art/Standing/Standing_0-5.png" id="5_hnidt"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_vg8cy"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("1_gwkun")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_v5mbf")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_hstfa")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_6shm8")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_hnidt")
-}],
-"loop": true,
-"name": &"Standing",
-"speed": 5.0
-}]
+[ext_resource type="Script" uid="uid://cgm74i6d5nhne" path="res://Scenes/Player Characters/player.gd" id="1_3oawi"]
+[ext_resource type="Resource" uid="uid://bycspef6kb30u" path="res://Resources/Players/Actural Resources/Epiphany.tres" id="2_ofdh8"]
+[ext_resource type="SpriteFrames" uid="uid://dv17vx5mw38u3" path="res://Art/Characters/Epiphany/Sprite Frame Files/epiphany.tres" id="2_uktaj"]
 
 [node name="Epiphany" type="CharacterBody2D"]
-script = ExtResource("1_v5mbf")
+motion_mode = 1
+script = ExtResource("1_3oawi")
+hero_stats = ExtResource("2_ofdh8")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_vg8cy")
+sprite_frames = ExtResource("2_uktaj")
 animation = &"Standing"
 frame_progress = 0.500851

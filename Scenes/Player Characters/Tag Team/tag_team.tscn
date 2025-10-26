@@ -1,9 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://dux85r8cuyj8o"]
+[gd_scene load_steps=3 format=3 uid="uid://dux85r8cuyj8o"]
 
-[ext_resource type="Texture2D" uid="uid://c0gpp6n0r2kve" path="res://Art/Characters/Tag Team/Tag Team Placeholder.jpg" id="1_lrb4j"]
+[ext_resource type="Script" uid="uid://cgm74i6d5nhne" path="res://Scenes/Player Characters/player.gd" id="1_m6xnu"]
+[ext_resource type="Resource" uid="uid://b1pny6fx3gbeh" path="res://Resources/Players/Actural Resources/Tag Team.tres" id="2_blano"]
 
 [node name="Tag Team" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_m6xnu")
+hero_stats = ExtResource("2_blano")
 
-[node name="Sprite" type="Sprite2D" parent="."]
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("1_lrb4j")
+[node name="Sprite" type="AnimatedSprite2D" parent="."]

@@ -1,0 +1,30 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://dv17vx5mw38u3"]
+
+[ext_resource type="Texture2D" uid="uid://d4d0xbioydrpc" path="res://Art/Characters/Epiphany/Character Art/Standing/Standing_0-1.png" id="1_ul2e5"]
+[ext_resource type="Texture2D" uid="uid://dyhrkem8nidn" path="res://Art/Characters/Epiphany/Character Art/Standing/Standing_0-2.png" id="2_q2i5r"]
+[ext_resource type="Texture2D" uid="uid://qqbmkmp8b83d" path="res://Art/Characters/Epiphany/Character Art/Standing/Standing_0-3.png" id="3_bjj5g"]
+[ext_resource type="Texture2D" uid="uid://bcr3xngppmgx7" path="res://Art/Characters/Epiphany/Character Art/Standing/Standing_0-4.png" id="4_p1jil"]
+[ext_resource type="Texture2D" uid="uid://1o7ssnvsq574" path="res://Art/Characters/Epiphany/Character Art/Standing/Standing_0-5.png" id="5_tte3v"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ul2e5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_q2i5r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_bjj5g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_p1jil")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_tte3v")
+}],
+"loop": true,
+"name": &"Standing",
+"speed": 5.0
+}]

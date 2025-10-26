@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Hero" load_steps=3 format=3 uid="uid://5ovy6u7givtq"]
+
+[ext_resource type="Script" uid="uid://datlkv8a5uak0" path="res://Resources/Players/Hero_res.gd" id="1_17ff2"]
+[ext_resource type="SpriteFrames" uid="uid://clvb3gindgge5" path="res://Art/Characters/Impact/Sprite Frame Files/impact_sprites.tres" id="2_tep1m"]
+
+[resource]
+script = ExtResource("1_17ff2")
+name = "Impact"
+max_health = 1
+base_strength = 1
+base_defense = 1
+base_speed = -90.0
+sprites = ExtResource("2_tep1m")
+metadata/_custom_type_script = "uid://datlkv8a5uak0"
