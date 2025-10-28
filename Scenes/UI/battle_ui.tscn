@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://bb78kb4w40iq1"]
+[gd_scene load_steps=2 format=3 uid="uid://bb78kb4w40iq1"]
+
+[ext_resource type="Script" uid="uid://6e7cwt7is2g0" path="res://Scenes/UI/command_menu.gd" id="1_8ot8m"]
 
 [node name="Battle UI" type="Control"]
 layout_mode = 3
@@ -6,7 +8,7 @@ anchors_preset = 0
 offset_right = 1150.0
 offset_bottom = 167.0
 
-[node name="ItemList" type="ItemList" parent="."]
+[node name="Command Menu" type="ItemList" parent="."]
 layout_mode = 0
 offset_right = 151.0
 offset_bottom = 167.0
@@ -15,6 +17,7 @@ item_0/text = "Attack"
 item_1/text = "Defend"
 item_2/text = "Items"
 item_3/text = "Run"
+script = ExtResource("1_8ot8m")
 
 [node name="Text Box" type="Control" parent="."]
 anchors_preset = 0
@@ -38,3 +41,5 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "THIS IS DEFAULT TEXT"
+
+[connection signal="item_selected" from="Command Menu" to="Command Menu" method="_on_item_selected"]
