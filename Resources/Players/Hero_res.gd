@@ -5,6 +5,7 @@ signal stats_changed
 
 @export_group("Player Base Stats")
 @export var name: String
+@export var command_deck: commands
 @export var max_health := 1
 @export var base_strength := 1
 @export var base_defense := 1

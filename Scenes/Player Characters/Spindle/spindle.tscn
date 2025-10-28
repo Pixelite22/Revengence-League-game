@@ -9,4 +9,4 @@ script = ExtResource("1_lds7e")
 hero_stats = ExtResource("2_drpf5")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
-animation = &""
+animation = &""                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
