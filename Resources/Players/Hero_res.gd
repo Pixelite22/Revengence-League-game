@@ -9,7 +9,7 @@ signal stats_changed
 @export var max_health := 1
 @export var base_strength := 1
 @export var base_defense := 1
-@export var base_speed := 1.0-+91 #?
+@export var base_speed := 1.0 #?
 
 
 
