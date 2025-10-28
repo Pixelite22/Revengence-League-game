@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://busok45foaq6o" path="res://Scenes/Player Characters/Epiphany/epiphany.tscn" id="6_g5fwm"]
 [ext_resource type="PackedScene" uid="uid://bdgv2jvfr3q45" path="res://Scenes/Player Characters/Impact/impact.tscn" id="7_bvd32"]
 [ext_resource type="PackedScene" uid="uid://bwnr1tnx05uj6" path="res://Scenes/Player Characters/Red Rocket/red_rocket.tscn" id="8_6sxxr"]
-[ext_resource type="PackedScene" uid="uid://cpknl7ng3m7ro" path="res://Scenes/Player Characters/Spindle/spindle.tscn" id="9_arijm"]
+[ext_resource type="PackedScene" uid="uid://cpknl7ng3m7ro" path="res://Scenes/Player Characters/Spindle/spindle.tscn" id="10_1al0i"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_1al0i")
@@ -76,5 +76,4 @@ rotation = 0.00575567
 [node name="Red Rocket" parent="." instance=ExtResource("8_6sxxr")]
 position = Vector2(-108, 197)
 
-[node name="Spindle" parent="." instance=ExtResource("9_arijm")]
-position = Vector2(-90, 9)
+[node name="Spindle" parent="." instance=ExtResource("10_1al0i")]

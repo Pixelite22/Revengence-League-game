@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="commands" load_steps=2 format=3 uid="uid://b8aywyjgsdmen"]
+
+[ext_resource type="Script" uid="uid://okn5if8xltlc" path="res://Resources/Command Decks/Command_Deck.gd" id="1_u0ki7"]
+
+[resource]
+script = ExtResource("1_u0ki7")
+metadata/_custom_type_script = "uid://okn5if8xltlc"
