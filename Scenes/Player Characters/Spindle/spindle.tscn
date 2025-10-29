@@ -1,12 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://cpknl7ng3m7ro"]
+[gd_scene load_steps=4 format=3 uid="uid://cpknl7ng3m7ro"]
 
 [ext_resource type="Script" uid="uid://cgm74i6d5nhne" path="res://Scenes/Player Characters/player.gd" id="1_lds7e"]
 [ext_resource type="Resource" uid="uid://b3nnijoj04rdb" path="res://Resources/Players/Actural Resources/Spindle.tres" id="2_drpf5"]
+[ext_resource type="Resource" uid="uid://pl0yhiby53vn" path="res://Resources/Command Decks/Actual Resources/Spindle Command Deck.tres" id="3_lds7e"]
 
 [node name="Spindle" type="CharacterBody2D"]
 motion_mode = 1
 script = ExtResource("1_lds7e")
 hero_stats = ExtResource("2_drpf5")
+hero_command_deck = ExtResource("3_lds7e")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
-animation = &""                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+animation = &""

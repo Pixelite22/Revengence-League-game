@@ -1,8 +1,11 @@
 extends ItemList
 
+signal turn_ended
+
 var menu := "base"
 var last : String
 var menu_options = ["base", "attack", "special", "items", "target"]
+var active_player : Player
 
 func _ready() -> void:
 	clear()
@@ -11,6 +14,7 @@ func _ready() -> void:
 	add_item("Defend", null, true)
 	add_item("Items", null, true)
 	add_item("Run", null, true)
+	add_item("Skip Turn", null, true)
 
 func _on_item_selected(index: int) -> void:
 	if menu == "base":
@@ -35,10 +39,16 @@ func change_options(new):
 		add_item("Defend", null, true)
 		add_item("Items", null, true)
 		add_item("Run", null, true)
+		add_item("Skip Turn", null, true)
 	if new == "attack":
-		add_item("Physical Option", null, true)
-		add_item("Distance Option", null, true)
-		add_item("Back", null, true)
+		if active_player.hero_command_deck:
+			add_item(active_player.hero_command_deck.attack_type.Physical, null, true)
+			add_item(active_player.hero_command_deck.attack_type.Distance, null, true)
+			add_item("Back")
+		else:
+			add_item("Physical Option", null, true)
+			add_item("Distance Option", null, true)
+			add_item("Back", null, true)
 	if new == "special":
 		add_item("Special 1", null, true)
 		add_item("Special 2", null, true)
@@ -62,6 +72,9 @@ func base_menu(index: int):
 		menu_transition("items")
 	if index == 4:
 		print("Run Selected... You Coward...")
+	if index == 5:
+		print("Skip Turn Selected")
+		turn_ended.emit()
 
 func attack_menu(index: int):
 	if index == 0:

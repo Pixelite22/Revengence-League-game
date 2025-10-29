@@ -4,4 +4,8 @@
 
 [resource]
 script = ExtResource("1_4mxcc")
+character = 1
+physical_attack_type = ""
+distance_attack_type = ""
+special_moves = {}
 metadata/_custom_type_script = "uid://okn5if8xltlc"

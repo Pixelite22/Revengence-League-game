@@ -1,13 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://c8fcxtoehvygu"]
+[gd_scene load_steps=5 format=3 uid="uid://c8fcxtoehvygu"]
 
 [ext_resource type="Script" uid="uid://cgm74i6d5nhne" path="res://Scenes/Player Characters/player.gd" id="1_fbkpt"]
 [ext_resource type="Resource" uid="uid://cjwe4x8cgi8nt" path="res://Resources/Players/Actural Resources/Dr Midnight.tres" id="2_qg1wf"]
 [ext_resource type="SpriteFrames" uid="uid://dvq2a2781pyy3" path="res://Art/Characters/Dr. Midnight/Sprite Frames/Dr Midnight Sprite Frames.tres" id="3_fbkpt"]
+[ext_resource type="Resource" uid="uid://qya3wysafc2v" path="res://Resources/Command Decks/Actual Resources/Dr Midnight Command Deck.tres" id="3_qg1wf"]
 
 [node name="Dr Midnight" type="CharacterBody2D"]
 motion_mode = 1
 script = ExtResource("1_fbkpt")
 hero_stats = ExtResource("2_qg1wf")
+hero_command_deck = ExtResource("3_qg1wf")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("3_fbkpt")

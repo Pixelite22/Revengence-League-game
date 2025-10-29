@@ -1,13 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://busok45foaq6o"]
+[gd_scene load_steps=5 format=3 uid="uid://busok45foaq6o"]
 
 [ext_resource type="Script" uid="uid://cgm74i6d5nhne" path="res://Scenes/Player Characters/player.gd" id="1_3oawi"]
 [ext_resource type="Resource" uid="uid://bycspef6kb30u" path="res://Resources/Players/Actural Resources/Epiphany.tres" id="2_ofdh8"]
 [ext_resource type="SpriteFrames" uid="uid://dv17vx5mw38u3" path="res://Art/Characters/Epiphany/Sprite Frame Files/epiphany.tres" id="2_uktaj"]
+[ext_resource type="Resource" uid="uid://b8aywyjgsdmen" path="res://Resources/Command Decks/Actual Resources/Epiphany Command Deck.tres" id="3_ofdh8"]
 
 [node name="Epiphany" type="CharacterBody2D"]
 motion_mode = 1
 script = ExtResource("1_3oawi")
 hero_stats = ExtResource("2_ofdh8")
+hero_command_deck = ExtResource("3_ofdh8")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("2_uktaj")

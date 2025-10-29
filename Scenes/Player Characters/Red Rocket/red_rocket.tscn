@@ -1,12 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://bwnr1tnx05uj6"]
+[gd_scene load_steps=4 format=3 uid="uid://bwnr1tnx05uj6"]
 
 [ext_resource type="Script" uid="uid://cgm74i6d5nhne" path="res://Scenes/Player Characters/player.gd" id="1_ohkqx"]
 [ext_resource type="Resource" uid="uid://bi1t42p40bu5a" path="res://Resources/Players/Actural Resources/Red Rocket.tres" id="2_j4wfy"]
+[ext_resource type="Resource" uid="uid://cu8fbv4dlu7m" path="res://Resources/Command Decks/Actual Resources/Red Rocket Command Deck.tres" id="3_ohkqx"]
 
 [node name="Red Rocket" type="CharacterBody2D"]
 motion_mode = 1
 script = ExtResource("1_ohkqx")
 hero_stats = ExtResource("2_j4wfy")
+hero_command_deck = ExtResource("3_ohkqx")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 animation = &""
