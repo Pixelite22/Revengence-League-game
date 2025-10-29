@@ -1,17 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://bb78kb4w40iq1"]
+[gd_scene load_steps=3 format=3 uid="uid://bb78kb4w40iq1"]
 
 [ext_resource type="Script" uid="uid://6e7cwt7is2g0" path="res://Scenes/UI/command_menu.gd" id="1_8ot8m"]
+[ext_resource type="Script" uid="uid://c2vm5q56fjjw3" path="res://Scenes/UI/battle_ui.gd" id="1_w7saw"]
 
 [node name="Battle UI" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1150.0
-offset_bottom = 167.0
+offset_bottom = 170.0
+script = ExtResource("1_w7saw")
 
 [node name="Command Menu" type="ItemList" parent="."]
 layout_mode = 0
 offset_right = 151.0
-offset_bottom = 167.0
+offset_bottom = 170.0
+allow_reselect = true
 item_count = 4
 item_0/text = "Attack"
 item_1/text = "Defend"
@@ -23,7 +26,7 @@ script = ExtResource("1_8ot8m")
 anchors_preset = 0
 offset_left = 151.0
 offset_right = 1149.0
-offset_bottom = 167.0
+offset_bottom = 170.0
 
 [node name="Text Box Background" type="ItemList" parent="Text Box"]
 layout_mode = 1

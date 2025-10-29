@@ -1,7 +1,11 @@
 extends CharacterBody2D
 class_name Player
 
+
+@export_category("Hero Details")
 @export var hero_stats : Hero : set = set_hero
+@export var hero_command_deck : commands #: set = set_command
+
 @onready var sprite = $Sprite
 
 
@@ -13,6 +17,9 @@ func set_hero(value: Hero):
 		hero_stats.stats_changed.connect(update_stats)
 	
 	update_player()
+
+func set_command(value: commands):
+	hero_command_deck = value
 
 func update_player():
 	if not hero_stats is Hero:
