@@ -15,3 +15,10 @@ hero_command_deck = ExtResource("3_ofdh8")
 sprite_frames = ExtResource("2_uktaj")
 animation = &"Standing"
 frame_progress = 0.500851
+
+[node name="Health Bar" type="ProgressBar" parent="."]
+offset_left = -47.0
+offset_top = 53.0
+offset_right = 54.0
+offset_bottom = 80.0
+value = 100.0

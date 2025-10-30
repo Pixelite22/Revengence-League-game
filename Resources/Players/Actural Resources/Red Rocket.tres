@@ -5,10 +5,10 @@
 
 [resource]
 script = ExtResource("1_wa2tg")
-name = ""
-max_health = 1
-base_strength = 1
-base_defense = 1
-base_speed = -90.0
+name = "Red Rocket"
+max_health = 100
+base_strength = 10
+base_defense = 10
+base_speed = 10.0
 sprites = ExtResource("2_u07ep")
 metadata/_custom_type_script = "uid://datlkv8a5uak0"

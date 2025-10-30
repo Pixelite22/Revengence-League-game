@@ -53,13 +53,13 @@ grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="P1 Mark" type="Marker2D" parent="Character Placement/Player Placement"]
-position = Vector2(431, -25)
+position = Vector2(431, -35)
 
 [node name="P2 Mark" type="Marker2D" parent="Character Placement/Player Placement"]
-position = Vector2(287, -20)
+position = Vector2(287, -30)
 
 [node name="P3 Mark" type="Marker2D" parent="Character Placement/Player Placement"]
-position = Vector2(143, -15)
+position = Vector2(143, -25)
 
 [node name="Enemy Placement" type="Control" parent="Character Placement"]
 anchors_preset = 0
@@ -68,13 +68,13 @@ offset_right = 1150.0
 offset_bottom = 56.0
 
 [node name="E1 Mark" type="Marker2D" parent="Character Placement/Enemy Placement"]
-position = Vector2(143, -25)
+position = Vector2(143, -35)
 
 [node name="E2 Mark" type="Marker2D" parent="Character Placement/Enemy Placement"]
-position = Vector2(287, -20)
+position = Vector2(287, -30)
 
 [node name="E3 Mark" type="Marker2D" parent="Character Placement/Enemy Placement"]
-position = Vector2(431, -15)
+position = Vector2(431, -25)
 
 [node name="Tag Team" parent="." instance=ExtResource("4_1al0i")]
 position = Vector2(-177, 198)

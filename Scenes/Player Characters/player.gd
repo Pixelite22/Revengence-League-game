@@ -7,8 +7,11 @@ class_name Player
 @export var hero_command_deck : commands #: set = set_command
 
 @onready var sprite = $Sprite
+@onready var health_bar: ProgressBar = $"Health Bar"
 
-
+#func _ready() -> void:
+#		hero_stats.health -= 5
+#		health_bar_update(hero_stats.health)
 
 func set_hero(value: Hero):
 	hero_stats = value.create_instance()
@@ -37,3 +40,6 @@ func update_stats():
 
 func sprite_flip():
 	sprite.flip_h = true
+
+func health_bar_update(health):
+	health_bar.value = hero_stats.health
