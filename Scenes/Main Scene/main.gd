@@ -12,6 +12,7 @@ var turn_queue_count : int
 
 @onready var battle_ui: Control = $"Battle UI"
 @onready var command_menu: ItemList = $"Battle UI/Command Menu"
+@onready var text_box: RichTextLabel = $"Battle UI/Text Box/RichTextLabel"
 
 
 @onready var p1_mark: Marker2D = $"Character Placement/Player Placement/P1 Mark"
@@ -20,6 +21,8 @@ var turn_queue_count : int
 @onready var e1_mark: Marker2D = $"Character Placement/Enemy Placement/E1 Mark"
 @onready var e2_mark: Marker2D = $"Character Placement/Enemy Placement/E2 Mark"
 @onready var e3_mark: Marker2D = $"Character Placement/Enemy Placement/E3 Mark"
+
+@onready var character_marker: AnimatedSprite2D = $"Character Marker"
 
 var active_player : Player
 
@@ -32,7 +35,7 @@ func _process(delta: float) -> void:
 	sprite_alignment(impact)
 	sprite_alignment(red_rocket)
 	sprite_alignment(spindle)
-	
+	charcter_marker_placement(active_player)
 
 
 func _ready() -> void:
@@ -52,17 +55,19 @@ func _ready() -> void:
 	turn_queue_count = 0
 	active_player = turn_queue[turn_queue_count]
 	command_menu.active_player = active_player
-	print(active_player.name)
+	text_box.text = "It's " + active_player.name + "'s Turn!"
 
 func turn_change():
 	print("Turn Change Reached!")
 	var last_player
-	if turn_queue_count < 6:
+	if turn_queue_count < turn_queue.size() - 1:
 		turn_queue_count += 1
 		last_player = active_player
 		active_player = turn_queue[turn_queue_count]
 		command_menu.active_player = active_player
 		print("Shifting turn from ", last_player, " to ", active_player)
+		text_box.text = "It's " + active_player.name + "'s Turn!"
+		print(turn_queue_count)
 	else:
 		print("Reached End of queue, looping back")
 		turn_queue_count = -1
@@ -71,3 +76,7 @@ func turn_change():
 func sprite_alignment(player: Player):
 	if player.position == e1_mark.global_position or player.position == e2_mark.global_position or player.position == e3_mark.global_position:
 		player.sprite_flip()
+
+func charcter_marker_placement(player):
+	character_marker.position = active_player.position - Vector2(0, 100)
+	character_marker.play()

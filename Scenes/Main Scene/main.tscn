@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://s3ejndc4wsld"]
+[gd_scene load_steps=13 format=3 uid="uid://s3ejndc4wsld"]
 
 [ext_resource type="Script" uid="uid://doppeanuqf6c6" path="res://Scenes/Main Scene/main.gd" id="1_1al0i"]
 [ext_resource type="PackedScene" uid="uid://cdo15u57dafsw" path="res://Scenes/Stages/stage_background.tscn" id="1_gka8t"]
@@ -10,6 +10,21 @@
 [ext_resource type="PackedScene" uid="uid://bdgv2jvfr3q45" path="res://Scenes/Player Characters/Impact/impact.tscn" id="7_bvd32"]
 [ext_resource type="PackedScene" uid="uid://bwnr1tnx05uj6" path="res://Scenes/Player Characters/Red Rocket/red_rocket.tscn" id="8_6sxxr"]
 [ext_resource type="PackedScene" uid="uid://cpknl7ng3m7ro" path="res://Scenes/Player Characters/Spindle/spindle.tscn" id="10_1al0i"]
+[ext_resource type="Texture2D" uid="uid://b3uk4o3uvgs8x" path="res://Art/Other/Red_triangle.png" id="11_j4e7m"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g5fwm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_j4e7m")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_1al0i")
@@ -78,3 +93,9 @@ rotation = 0.00575567
 position = Vector2(-108, 197)
 
 [node name="Spindle" parent="." instance=ExtResource("10_1al0i")]
+
+[node name="Character Marker" type="AnimatedSprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.686275)
+position = Vector2(-76, 327)
+scale = Vector2(0.0557617, 0.0337816)
+sprite_frames = SubResource("SpriteFrames_g5fwm")
