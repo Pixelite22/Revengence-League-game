@@ -1,14 +1,16 @@
-[gd_resource type="Resource" script_class="Hero" load_steps=3 format=3 uid="uid://bycspef6kb30u"]
+[gd_resource type="Resource" script_class="Hero" load_steps=4 format=3 uid="uid://bycspef6kb30u"]
 
+[ext_resource type="Resource" uid="uid://b8aywyjgsdmen" path="res://Resources/Command Decks/Actual Resources/Epiphany Command Deck.tres" id="1_c03u0"]
 [ext_resource type="Script" uid="uid://datlkv8a5uak0" path="res://Resources/Players/Hero_res.gd" id="1_i2fwj"]
 [ext_resource type="SpriteFrames" uid="uid://dv17vx5mw38u3" path="res://Art/Characters/Epiphany/Sprite Frame Files/epiphany.tres" id="2_5jntn"]
 
 [resource]
 script = ExtResource("1_i2fwj")
 name = "Epiphany"
-max_health = 1
-base_strength = 1
-base_defense = 1
-base_speed = -90.0
+command_deck = ExtResource("1_c03u0")
+max_health = 100
+base_strength = 10
+base_defense = 10
+base_speed = 5.0
 sprites = ExtResource("2_5jntn")
 metadata/_custom_type_script = "uid://datlkv8a5uak0"

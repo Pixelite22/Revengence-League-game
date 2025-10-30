@@ -14,3 +14,10 @@ hero_command_deck = ExtResource("3_qg1wf")
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("3_fbkpt")
 animation = &"Standing"
+
+[node name="Health Bar" type="ProgressBar" parent="."]
+offset_left = -47.0
+offset_top = 53.0
+offset_right = 54.0
+offset_bottom = 80.0
+value = 100.0

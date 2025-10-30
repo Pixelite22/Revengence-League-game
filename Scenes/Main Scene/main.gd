@@ -67,7 +67,6 @@ func turn_change():
 		command_menu.active_player = active_player
 		print("Shifting turn from ", last_player, " to ", active_player)
 		text_box.text = "It's " + active_player.name + "'s Turn!"
-		print(turn_queue_count)
 	else:
 		print("Reached End of queue, looping back")
 		turn_queue_count = -1
@@ -78,5 +77,5 @@ func sprite_alignment(player: Player):
 		player.sprite_flip()
 
 func charcter_marker_placement(player):
-	character_marker.position = active_player.position - Vector2(0, 100)
+	character_marker.position = active_player.position - Vector2(0, 150)
 	character_marker.play()
