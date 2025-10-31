@@ -7,5 +7,9 @@ script = ExtResource("1_pjsu3")
 character = 4
 physical_attack_type = "Punch"
 distance_attack_type = "Telekinetic Toss"
-special_moves = {}
+special_moves = {
+"Ground Phazing": "Other",
+"Holding Pattern": "Other",
+"Slingshot Special": "Distance"
+}
 metadata/_custom_type_script = "uid://okn5if8xltlc"

@@ -55,6 +55,7 @@ func _ready() -> void:
 	turn_queue_count = 0
 	active_player = turn_queue[turn_queue_count]
 	command_menu.active_player = active_player
+	command_menu.fill_choice_options()
 	text_box.text = "It's " + active_player.name + "'s Turn!"
 
 func turn_change():
@@ -65,6 +66,7 @@ func turn_change():
 		last_player = active_player
 		active_player = turn_queue[turn_queue_count]
 		command_menu.active_player = active_player
+		command_menu.fill_choice_options()
 		print("Shifting turn from ", last_player, " to ", active_player)
 		text_box.text = "It's " + active_player.name + "'s Turn!"
 	else:

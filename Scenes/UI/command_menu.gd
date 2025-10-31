@@ -6,6 +6,7 @@ var menu := "base"
 var last : String
 var menu_options = ["base", "attack", "special", "items", "target"]
 var active_player : Player
+var choice_options : Array = []
 
 func _ready() -> void:
 	clear()
@@ -15,6 +16,12 @@ func _ready() -> void:
 	add_item("Items", null, true)
 	add_item("Run", null, true)
 	add_item("Skip Turn", null, true)
+
+func fill_choice_options():
+	if active_player:
+		choice_options.clear()
+		for options in active_player.hero_command_deck.special_moves:
+			choice_options.append(options)
 
 func _on_item_selected(index: int) -> void:
 	if menu == "base":
@@ -50,14 +57,22 @@ func change_options(new):
 			add_item("Distance Option", null, true)
 			add_item("Back", null, true)
 	if new == "special":
-		add_item("Special 1", null, true)
-		add_item("Special 2", null, true)
-		add_item("Back", null, true)
+		if active_player.hero_command_deck:
+			for moves in active_player.hero_command_deck.special_moves:
+				add_item(moves, null, true)
+			add_item("Back", null, true)
+		else:
+			add_item("Special 1", null, true)
+			add_item("Special 2", null, true)
+			add_item("Back", null, true)
 	if new == "items":
 		add_item("Item 1", null, true)
 		add_item("Item 2", null, true)
 		add_item("Back", null, true)
 
+
+#From here on I should find a way to make these functions more dynamic since the moves can vary from 
+#player to player but the back button always needs to stay in the same spot at the end.
 func base_menu(index: int):
 	if index == 0:
 		print("attack Selected")
@@ -89,7 +104,7 @@ func special_menu(index: int):
 		pass
 	if index == 1:
 		pass
-	if index == 2:
+	if index == choice_options.size() :
 		menu_transition("base")
 
 func item_menu(index: int):
