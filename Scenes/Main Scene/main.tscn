@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://s3ejndc4wsld"]
+[gd_scene load_steps=14 format=3 uid="uid://s3ejndc4wsld"]
 
 [ext_resource type="Script" uid="uid://doppeanuqf6c6" path="res://Scenes/Main Scene/main.gd" id="1_1al0i"]
 [ext_resource type="PackedScene" uid="uid://cdo15u57dafsw" path="res://Scenes/Stages/stage_background.tscn" id="1_gka8t"]
 [ext_resource type="Script" uid="uid://thylrqclbv11" path="res://Scenes/Stages/stage_background.gd" id="2_2r00m"]
 [ext_resource type="PackedScene" uid="uid://bb78kb4w40iq1" path="res://Scenes/UI/battle_ui.tscn" id="2_k7g0x"]
 [ext_resource type="PackedScene" uid="uid://dux85r8cuyj8o" path="res://Scenes/Player Characters/Tag Team/tag_team.tscn" id="4_1al0i"]
+[ext_resource type="Script" uid="uid://bjwdjbjojcclq" path="res://Scenes/Main Scene/turn_order.gd" id="5_g5fwm"]
 [ext_resource type="PackedScene" uid="uid://c8fcxtoehvygu" path="res://Scenes/Player Characters/Dr. Midnight/dr_midnight.tscn" id="5_j4e7m"]
 [ext_resource type="PackedScene" uid="uid://busok45foaq6o" path="res://Scenes/Player Characters/Epiphany/epiphany.tscn" id="6_g5fwm"]
 [ext_resource type="PackedScene" uid="uid://bdgv2jvfr3q45" path="res://Scenes/Player Characters/Impact/impact.tscn" id="7_bvd32"]
@@ -35,6 +36,13 @@ script = ExtResource("2_2r00m")
 
 [node name="Battle UI" parent="." instance=ExtResource("2_k7g0x")]
 metadata/_edit_use_anchors_ = true
+
+[node name="Turn Order" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("5_g5fwm")
 
 [node name="Character Placement" type="Control" parent="."]
 layout_mode = 3

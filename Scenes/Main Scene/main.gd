@@ -10,6 +10,7 @@ extends Node2D
 var turn_queue : Array
 var turn_queue_count : int
 
+@onready var turn_order: Control = $"Turn Order"
 @onready var battle_ui: Control = $"Battle UI"
 @onready var command_menu: ItemList = $"Battle UI/Command Menu"
 @onready var text_box: RichTextLabel = $"Battle UI/Text Box/RichTextLabel"
@@ -25,6 +26,7 @@ var turn_queue_count : int
 @onready var character_marker: AnimatedSprite2D = $"Character Marker"
 
 var active_player : Player
+var counter_pause := false
 
 func _process(delta: float) -> void:
 #	active_player = spindle
@@ -50,29 +52,44 @@ func _ready() -> void:
 	if not command_menu.turn_ended.is_connected(turn_change):
 		command_menu.turn_ended.connect(turn_change)
 	
+	if not turn_order.turn_count_continued.is_connected(turn_change):
+		turn_order.turn_count_continued.connect(turn_change)
 	
-	turn_queue = [spindle, impact, epiphany, red_rocket, tag_team, dr_midnight]
-	turn_queue_count = 0
-	active_player = turn_queue[turn_queue_count]
+	turn_queue = [spindle, tag_team, dr_midnight, red_rocket, epiphany, impact]
+	active_player = spindle
 	command_menu.active_player = active_player
 	command_menu.fill_choice_options()
-	text_box.text = "It's " + active_player.name + "'s Turn!"
+	text_box.text = active_player.name + " percieves a fight!  He moves first!"
 
 func turn_change():
 	print("Turn Change Reached!")
-	var last_player
-	if turn_queue_count < turn_queue.size() - 1:
-		turn_queue_count += 1
-		last_player = active_player
-		active_player = turn_queue[turn_queue_count]
-		command_menu.active_player = active_player
-		command_menu.fill_choice_options()
-		print("Shifting turn from ", last_player, " to ", active_player)
-		text_box.text = "It's " + active_player.name + "'s Turn!"
-	else:
-		print("Reached End of queue, looping back")
-		turn_queue_count = -1
-		turn_change()
+	turn_order.turn_reset(active_player)
+	var last_player : Player
+	if counter_pause == false:
+		counter_pause = turn_order.turn_countdown(turn_queue)
+	elif counter_pause == true:
+		for child in get_children():
+			if child is Player:
+				if child.hero_stats.time == 0:
+					last_player = active_player
+					active_player = child
+					command_menu.active_player = active_player
+					command_menu.fill_choice_options()
+					print("Shifting turn from ", last_player, " to ", active_player)
+					text_box.text = "It's " + active_player.name + "'s Turn!"
+	
+#	if turn_queue_count < turn_queue.size() - 1:
+#		turn_queue_count += 1
+#		last_player = active_player
+#		active_player = turn_queue[turn_queue_count]
+#		command_menu.active_player = active_player
+#		command_menu.fill_choice_options()
+#		print("Shifting turn from ", last_player, " to ", active_player)
+#		text_box.text = "It's " + active_player.name + "'s Turn!"
+#	else:
+#		print("Reached End of queue, looping back")
+#		turn_queue_count = -1
+#		turn_change()
 
 func sprite_alignment(player: Player):
 	if player.position == e1_mark.global_position or player.position == e2_mark.global_position or player.position == e3_mark.global_position:
