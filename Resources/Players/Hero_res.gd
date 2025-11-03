@@ -9,8 +9,11 @@ signal stats_changed
 @export var max_health := 1
 @export var base_strength := 1
 @export var base_defense := 1
-@export var base_speed := 1.0 #?
+@export var base_speed := 1 #?
 
+#Turn Count Stuff
+var max_time : int
+var time : int
 
 
 @export_group("Player Visuals")
@@ -24,3 +27,7 @@ func create_instance():
 	var instance: Hero = self.duplicate()
 	instance.health = max_health
 	return instance
+
+func speed():
+	max_time = 100 - base_speed
+	time = max_time
