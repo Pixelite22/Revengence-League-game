@@ -27,6 +27,7 @@ var turn_queue_count : int
 
 var active_player : Player
 var counter_pause := false
+var last_player : Player
 
 func _process(delta: float) -> void:
 #	active_player = spindle
@@ -52,31 +53,53 @@ func _ready() -> void:
 	if not command_menu.turn_ended.is_connected(turn_change):
 		command_menu.turn_ended.connect(turn_change)
 	
-	if not turn_order.turn_count_continued.is_connected(turn_change):
-		turn_order.turn_count_continued.connect(turn_change)
+	if not turn_order.turn_count_reached.is_connected(turn_change):
+		turn_order.turn_count_reached.connect(turn_change)
 	
 	turn_queue = [spindle, tag_team, dr_midnight, red_rocket, epiphany, impact]
 	active_player = spindle
 	command_menu.active_player = active_player
 	command_menu.fill_choice_options()
 	text_box.text = active_player.name + " percieves a fight!  He moves first!"
+	
+	for child in get_children():
+		if child is Player:
+			child.hero_stats.speed()
+			print(child.name, " is geting there speed set to ", child.hero_stats.time)
 
-func turn_change():
+func turn_change(turn_ready):
 	print("Turn Change Reached!")
-	turn_order.turn_reset(active_player)
-	var last_player : Player
-	if counter_pause == false:
-		counter_pause = turn_order.turn_countdown(turn_queue)
-	elif counter_pause == true:
-		for child in get_children():
-			if child is Player:
-				if child.hero_stats.time == 0:
-					last_player = active_player
-					active_player = child
-					command_menu.active_player = active_player
-					command_menu.fill_choice_options()
-					print("Shifting turn from ", last_player, " to ", active_player)
-					text_box.text = "It's " + active_player.name + "'s Turn!"
+	if turn_ready == null or turn_ready == false:
+		turn_order.turn_countdown(turn_queue)
+		turn_ready = turn_order.turn_reached
+#	if last_player:
+#		turn_order.turn_reset(last_player)
+	
+
+	var possible_players : Array = []
+	for player in turn_queue:
+		if player.hero_stats.time <= 0:
+			possible_players.append(player)
+		
+	possible_players.sort_custom(speed_comparison)
+	
+	var active_player_turn := false
+	while not possible_players.is_empty() && active_player_turn == false:
+		print("Active Players: ", possible_players)
+		active_player = possible_players.pop_front() #possible_players[0]
+		command_menu.active_player = active_player
+		command_menu.fill_choice_options()
+		print("Shifting turn from ", last_player, " to ", active_player)
+		text_box.text = "It's " + active_player.name + "'s Turn!"
+		active_player_turn = true
+		last_player = active_player
+		turn_order.turn_reset(last_player)
+		
+		
+	if possible_players.is_empty():
+		turn_ready = false
+	
+	
 	
 #	if turn_queue_count < turn_queue.size() - 1:
 #		turn_queue_count += 1
@@ -90,6 +113,14 @@ func turn_change():
 #		print("Reached End of queue, looping back")
 #		turn_queue_count = -1
 #		turn_change()
+
+#func end_turn():
+#	active_player.hero_stats.time = active_player.hero_stats.max_time
+#	turn_change(false)
+
+func speed_comparison(p1, p2):
+	if p1.hero_stats.base_speed > p2.hero_stats.base_speed:
+		return true
 
 func sprite_alignment(player: Player):
 	if player.position == e1_mark.global_position or player.position == e2_mark.global_position or player.position == e3_mark.global_position:

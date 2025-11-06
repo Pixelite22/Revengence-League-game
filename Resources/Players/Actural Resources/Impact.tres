@@ -11,6 +11,6 @@ command_deck = ExtResource("1_jqc7m")
 max_health = 100
 base_strength = 10
 base_defense = 10
-base_speed = 30
+base_speed = 45
 sprites = ExtResource("2_tep1m")
 metadata/_custom_type_script = "uid://datlkv8a5uak0"

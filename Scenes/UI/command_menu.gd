@@ -89,7 +89,7 @@ func base_menu(index: int):
 		print("Run Selected... You Coward...")
 	if index == 5:
 		print("Skip Turn Selected")
-		turn_ended.emit()
+		turn_ended.emit(null)
 
 func attack_menu(index: int):
 	if index == 0:
