@@ -1,14 +1,16 @@
-[gd_resource type="Resource" script_class="Hero" load_steps=3 format=3 uid="uid://bi1t42p40bu5a"]
+[gd_resource type="Resource" script_class="Hero" load_steps=4 format=3 uid="uid://bi1t42p40bu5a"]
 
+[ext_resource type="Resource" uid="uid://cu8fbv4dlu7m" path="res://Resources/Command Decks/Actual Resources/Red Rocket Command Deck.tres" id="1_c4pv5"]
 [ext_resource type="Script" uid="uid://datlkv8a5uak0" path="res://Resources/Players/Hero_res.gd" id="1_wa2tg"]
 [ext_resource type="SpriteFrames" uid="uid://c4bv5um817u0g" path="res://Art/Characters/Red Rocket/Sprites Frames/Red Rocket Sprites.tres" id="2_u07ep"]
 
 [resource]
 script = ExtResource("1_wa2tg")
 name = "Red Rocket"
+command_deck = ExtResource("1_c4pv5")
 max_health = 100
 base_strength = 10
 base_defense = 10
-base_speed = 90
+base_speed = 75
 sprites = ExtResource("2_u07ep")
 metadata/_custom_type_script = "uid://datlkv8a5uak0"
