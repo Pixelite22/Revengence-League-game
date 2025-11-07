@@ -18,6 +18,7 @@ var time : int
 
 @export_group("Player Visuals")
 @export var sprites: SpriteFrames
+@export var count_img: Texture2D
 
 var aggro_flag := false
 var health: int

@@ -14,6 +14,7 @@ var turn_queue_count : int
 @onready var battle_ui: Control = $"Battle UI"
 @onready var command_menu: ItemList = $"Battle UI/Command Menu"
 @onready var text_box: RichTextLabel = $"Battle UI/Text Box/RichTextLabel"
+@onready var turn_countdowns: Path2D = $"Battle UI/Turn Countdowns"
 
 
 @onready var p1_mark: Marker2D = $"Character Placement/Player Placement/P1 Mark"
@@ -39,6 +40,9 @@ func _process(delta: float) -> void:
 	sprite_alignment(red_rocket)
 	sprite_alignment(spindle)
 	charcter_marker_placement(active_player)
+	
+	turn_countdowns.timeline(turn_queue)
+
 
 
 func _ready() -> void:
@@ -61,6 +65,8 @@ func _ready() -> void:
 	command_menu.active_player = active_player
 	command_menu.fill_choice_options()
 	text_box.text = active_player.name + " percieves a fight!  He moves first!"
+	
+	turn_countdowns.timeline_creation(turn_queue)
 	
 	for child in get_children():
 		if child is Player:

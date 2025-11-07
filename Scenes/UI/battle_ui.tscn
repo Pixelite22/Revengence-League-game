@@ -1,7 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://bb78kb4w40iq1"]
+[gd_scene load_steps=5 format=3 uid="uid://bb78kb4w40iq1"]
 
 [ext_resource type="Script" uid="uid://6e7cwt7is2g0" path="res://Scenes/UI/command_menu.gd" id="1_8ot8m"]
 [ext_resource type="Script" uid="uid://c2vm5q56fjjw3" path="res://Scenes/UI/battle_ui.gd" id="1_w7saw"]
+[ext_resource type="Script" uid="uid://7187arxh2xph" path="res://Scenes/UI/turn_countdowns_ui.gd" id="3_xs5rh"]
+
+[sub_resource type="Curve2D" id="Curve2D_j0qav"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 150, 170, 0, 0, 0, 0, 1050, 170)
+}
+point_count = 2
 
 [node name="Battle UI" type="Control"]
 layout_mode = 3
@@ -44,5 +51,42 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "THIS IS DEFAULT TEXT"
+
+[node name="Turn Countdowns" type="Path2D" parent="."]
+curve = SubResource("Curve2D_j0qav")
+script = ExtResource("3_xs5rh")
+
+[node name="Node" type="Node" parent="."]
+
+[node name="Dr Midnight Turn Countdown" type="PathFollow2D" parent="Node"]
+position = Vector2(1050, 164)
+rotation = -3.14159
+v_offset = 6.0
+
+[node name="Tag Team Turn Countdown" type="PathFollow2D" parent="Node"]
+position = Vector2(1050, 174)
+rotation = -3.14159
+v_offset = -4.0
+
+[node name="Epiphany Turn Countdown" type="PathFollow2D" parent="Node"]
+position = Vector2(1050, 172)
+rotation = -3.14159
+v_offset = -2.0
+
+[node name="Impact Turn Countdown" type="PathFollow2D" parent="Node"]
+position = Vector2(1050, 166)
+rotation = -3.14159
+v_offset = 4.0
+
+[node name="Red Rocket Turn Countdown" type="PathFollow2D" parent="Node"]
+position = Vector2(1050, 168)
+rotation = -3.14159
+v_offset = 2.0
+
+[node name="Spindle Turn Countdown" type="PathFollow2D" parent="Node"]
+position = Vector2(1050, 170)
+rotation = -3.14159
+
+[node name="Sprite2D" type="Sprite2D" parent="Node"]
 
 [connection signal="item_selected" from="Command Menu" to="Command Menu" method="_on_item_selected"]
