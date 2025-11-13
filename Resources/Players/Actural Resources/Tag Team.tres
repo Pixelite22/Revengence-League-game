@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="Hero" load_steps=4 format=3 uid="uid://b1pny6fx3gbeh"]
+[gd_resource type="Resource" script_class="Hero" load_steps=5 format=3 uid="uid://b1pny6fx3gbeh"]
 
 [ext_resource type="Resource" uid="uid://mjweyoyjeb0h" path="res://Resources/Command Decks/Actual Resources/Tag Team.tres" id="1_hfa5i"]
 [ext_resource type="Script" uid="uid://datlkv8a5uak0" path="res://Resources/Players/Hero_res.gd" id="1_qg4fg"]
+[ext_resource type="Texture2D" uid="uid://b2c1ck4jyyd48" path="res://Art/Characters/Tag Team/Icon/Tag Team Icon.png" id="2_7fuh7"]
 [ext_resource type="SpriteFrames" uid="uid://wqdoo3jl8wkv" path="res://Art/Characters/Tag Team/Sprite Frames/Tag Team.tres" id="2_oxe7h"]
 
 [resource]
@@ -13,4 +14,5 @@ base_strength = 10
 base_defense = 10
 base_speed = 60
 sprites = ExtResource("2_oxe7h")
+count_img = ExtResource("2_7fuh7")
 metadata/_custom_type_script = "uid://datlkv8a5uak0"
