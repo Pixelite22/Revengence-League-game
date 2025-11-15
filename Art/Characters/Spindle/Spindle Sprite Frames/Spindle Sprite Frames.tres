@@ -1,6 +1,10 @@
-[gd_resource type="SpriteFrames" load_steps=18 format=3 uid="uid://ch6vbc5521u7"]
+[gd_resource type="SpriteFrames" load_steps=22 format=3 uid="uid://ch6vbc5521u7"]
 
 [ext_resource type="Texture2D" uid="uid://beecbauxc7uvd" path="res://Art/Placeholder/Placeholder Sprite.png" id="1_4mppi"]
+[ext_resource type="Texture2D" uid="uid://tcmx7rkfhgcy" path="res://Art/Characters/Spindle/Standing/Spindle Standing_0-0.png" id="2_0d3ap"]
+[ext_resource type="Texture2D" uid="uid://dgucqd2i01svm" path="res://Art/Characters/Spindle/Standing/Spindle Standing_0-1.png" id="3_msj0n"]
+[ext_resource type="Texture2D" uid="uid://b6tengblvna65" path="res://Art/Characters/Spindle/Standing/Spindle Standing_0-2.png" id="4_8l288"]
+[ext_resource type="Texture2D" uid="uid://c4fhoion0nm1u" path="res://Art/Characters/Spindle/Standing/Spindle Standing_0-3.png" id="5_jlc6m"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4wuua"]
 atlas = ExtResource("1_4mppi")
@@ -116,6 +120,29 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_e6wuu")
+}],
+"loop": true,
+"name": &"Placeholder",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_0d3ap")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_msj0n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_8l288")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_jlc6m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_8l288")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_msj0n")
 }],
 "loop": true,
 "name": &"Standing",
