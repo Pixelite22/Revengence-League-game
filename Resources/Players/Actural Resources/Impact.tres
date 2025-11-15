@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="Hero" load_steps=4 format=3 uid="uid://5ovy6u7givtq"]
+[gd_resource type="Resource" script_class="Hero" load_steps=5 format=3 uid="uid://5ovy6u7givtq"]
 
 [ext_resource type="Script" uid="uid://datlkv8a5uak0" path="res://Resources/Players/Hero_res.gd" id="1_17ff2"]
 [ext_resource type="Resource" uid="uid://t0w81ngfae6t" path="res://Resources/Command Decks/Actual Resources/Impact Command Deck.tres" id="1_jqc7m"]
+[ext_resource type="Texture2D" uid="uid://r138abflh7vm" path="res://Art/Characters/Impact/Icon/Impact_Place_holder-removebg-preview_1_100x100.png" id="2_0hkrb"]
 [ext_resource type="SpriteFrames" uid="uid://clvb3gindgge5" path="res://Art/Characters/Impact/Sprite Frame Files/impact_sprites.tres" id="2_tep1m"]
 
 [resource]
@@ -9,8 +10,10 @@ script = ExtResource("1_17ff2")
 name = "Impact"
 command_deck = ExtResource("1_jqc7m")
 max_health = 100
-base_strength = 10
+base_melee = 5
+base_power = 1
 base_defense = 10
 base_speed = 45
 sprites = ExtResource("2_tep1m")
+count_img = ExtResource("2_0hkrb")
 metadata/_custom_type_script = "uid://datlkv8a5uak0"

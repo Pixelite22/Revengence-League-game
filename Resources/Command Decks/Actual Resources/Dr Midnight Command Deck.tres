@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_4mxcc")
-character = 1
+character = 0
 physical_attack_type = ""
 distance_attack_type = ""
 special_moves = {}
