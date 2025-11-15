@@ -66,6 +66,11 @@ func _ready() -> void:
 	dr_midnight.position = e2_mark.global_position
 	tag_team.position = e3_mark.global_position
 	
+	#This is a temporary setting of player flags to make targeting viable in this test enviroment
+	spindle.hero_stats.player_tag = true
+	impact.hero_stats.player_tag = true
+	epiphany.hero_stats.player_tag = true
+	
 	#connecting the turn_ended signal to turn_change from the command_menu script
 	if not command_menu.turn_ended.is_connected(turn_change):
 		command_menu.turn_ended.connect(turn_change)
@@ -86,7 +91,7 @@ func _ready() -> void:
 	#Loop to set speed for players... again could probably be it's own function
 	for child in get_children():
 		if child is Player:
-			child.hero_stats.speed()
+			child.hero_stats.stats()
 			print(child.name, " is geting there speed set to ", child.hero_stats.time)
 
 #turn change logic function
@@ -131,3 +136,14 @@ func sprite_alignment(player: Player): #Simple function to flip a sprite if it i
 func charcter_marker_placement(player): #possibly defunct function to correctly place the marker to show who's turn it is
 	character_marker.position = active_player.position - Vector2(0, 150)
 	character_marker.play()
+
+
+func _on_battle_ui_target_menu_opened() -> void:
+	var available_targets := []
+	for child in get_children():
+		if child is Player:
+			if child.hero_stats.player_tag == false:
+				available_targets.append(child)
+	
+	command_menu.targets = available_targets
+	print(command_menu.targets)

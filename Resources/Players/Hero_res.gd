@@ -21,10 +21,15 @@ var time : int
 @export var sprites: SpriteFrames
 @export var count_img: Texture2D
 
+var player_tag := false
+
 #What is going to be the variables for all the stats.
 var aggro_flag := false
 var health: int
-var strength: int
+var melee: int
+var power: int
+var defense: int
+
 
 #Adds an instance of a character
 func create_instance():
@@ -33,6 +38,38 @@ func create_instance():
 	return instance #Returns the character to be called.
 
 #Function handles speed
-func speed():
+func stats():
+	health = max_health
+	melee = base_melee
+	power = base_power
+	defense = base_defense
 	max_time = 100 - base_speed #Subtract speed from 100 to find how many ticks each turn will take
 	time = max_time #Set time equal to those ticks.  This variable will be edited in other scripts
+
+#Basic Attacks
+func physical(target: Player):
+	print(name, " attacks ", target.name, " with a physical attack!!!")
+	target.hero_stats.health -= melee
+	print(target.hero_stats.health)
+
+func distance(target):
+	print(name, " attacks ", target.name, " with a distance attack!!!")
+	target.hero_stats.health -= power
+
+
+#Impact Attacks
+func giga_punch(target):
+	pass
+
+func mega_slam(target):
+	pass
+
+#Spindle Attacks
+func ground_phazing(target):
+	pass
+
+func holding_pattern(target):
+	pass
+
+func slingshot_special(target):
+	pass

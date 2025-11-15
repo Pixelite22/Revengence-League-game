@@ -104,3 +104,5 @@ modulate = Color(1, 1, 1, 0.686275)
 position = Vector2(-76, 327)
 scale = Vector2(0.0557617, 0.0337816)
 sprite_frames = SubResource("SpriteFrames_g5fwm")
+
+[connection signal="target_menu_opened" from="Battle UI" to="." method="_on_battle_ui_target_menu_opened"]

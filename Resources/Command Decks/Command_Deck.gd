@@ -30,7 +30,6 @@ func set_dist_attack(value: String):
 
 func attack_menu():
 	pass
-		
 
 func special_menu():
 	pass

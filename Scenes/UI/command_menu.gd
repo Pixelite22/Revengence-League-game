@@ -1,12 +1,15 @@
 extends ItemList
 
 signal turn_ended
+signal target_menu_opened
 
 var menu := "base"
-var last : String
+var last_menu : String
 var menu_options = ["base", "attack", "special", "items", "target"]
 var active_player : Player
 var choice_options : Array = []
+var targets := []
+var action 
 
 func _ready() -> void: #When loading into the scene
 	clear() #Clear the options if there are any
@@ -34,10 +37,12 @@ func _on_item_selected(index: int) -> void:
 		special_menu(index)
 	if menu == "items":
 		item_menu(index)
+	if menu == "target":
+		target_menu(index)
 
 #menu transition function
 func menu_transition(new_menu):
-	last = menu #Set the last to the menu for when a back option exists
+	last_menu = menu #Set the last to the menu for when a back option exists
 	menu = new_menu #Set menu to the new_menu value
 	change_options(menu) #Call change options functoin
 
@@ -73,6 +78,11 @@ func change_options(new):
 		add_item("Item 1", null, true)
 		add_item("Item 2", null, true)
 		add_item("Back", null, true)
+	if new == "target":
+		target_menu_opened.emit()
+		for enemy in targets:
+			add_item(str(enemy.name), null, true)
+		add_item("Back", null, true)
 
 
 #From here on I should find a way to make these functions more dynamic since the moves can vary from 
@@ -98,18 +108,24 @@ func base_menu(index: int):
 
 func attack_menu(index: int):
 	if index == 0: #Physical Option for Attack
-		pass
+		#action = active_player.hero_command_deck.attack_type["Physical"]
+		action = "physical"
+		menu_transition("target")
 	if index == 1: #Distance Option for Attack
-		pass
+		#action = active_player.hero_command_deck.attack_type["Distance"]
+		action = "distance"
+		menu_transition("target")
 	if index == 2:
 		menu_transition("base")
 
 func special_menu(index: int):
 	if index != choice_options.size():
 		print("Move Selected: ", active_player.hero_command_deck.special_moves[index])
+		action = active_player.hero_command_deck.special_moves[index]
 		#This works so best way to continue from here is to make if statements that lead to functions
 		#if active_player.hero_command_deck.special_moves[index] == move name here:
 		#	move_name()
+		menu_transition("target")
 	if index == choice_options.size() :
 		menu_transition("base")
 
@@ -120,3 +136,15 @@ func item_menu(index: int):
 		pass
 	if index == 2:
 		menu_transition("base")
+
+func target_menu(index: int):
+	if index != targets.size():
+		process_attack(action, targets[index])
+	if index == targets.size():
+		menu_transition(last_menu)
+
+func process_attack(action: String, targets: Player):
+	if action == "physical":
+		active_player.hero_stats.physical(targets)
+	if action == "distance":
+		active_player.hero_stats.distance(targets)
