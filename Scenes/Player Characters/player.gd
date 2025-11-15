@@ -13,6 +13,9 @@ class_name Player
 #		hero_stats.health -= 5
 #		health_bar_update(hero_stats.health)
 
+func _process(delta: float) -> void:
+	health_bar_update(hero_stats.health)
+
 #Function to set hero
 func set_hero(value: Hero): #Recieves a Hero 
 	hero_stats = value.create_instance() #Calls create instance from the resource on the value it recieved

@@ -8,7 +8,7 @@ character = 2
 physical_attack_type = "Slam"
 distance_attack_type = "Chuck"
 special_moves = {
-"Giga Punch": "Physical",
-"Mega Slam": "Physical"
+0: "Giga Punch",
+1: "Mega Slam"
 }
 metadata/_custom_type_script = "uid://okn5if8xltlc"

@@ -73,3 +73,4 @@ position = Vector2(871, 176)
 texture = ExtResource("4_j0qav")
 
 [connection signal="item_selected" from="Command Menu" to="Command Menu" method="_on_item_selected"]
+[connection signal="target_menu_opened" from="Command Menu" to="." method="_on_command_menu_target_menu_opened"]
