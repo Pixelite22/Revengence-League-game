@@ -83,7 +83,7 @@ func _ready() -> void:
 	turn_queue = [spindle, tag_team, dr_midnight, red_rocket, epiphany, impact]
 	active_player = spindle
 	command_menu.active_player = active_player
-	command_menu.fill_choice_options()
+#	command_menu.fill_choice_options()
 	text_box.text = active_player.name + " percieves a fight!  He moves first!"
 	#Adds Characters symbols to timeline dynamically
 	turn_countdowns.timeline_creation(turn_queue)
@@ -114,7 +114,7 @@ func turn_change(turn_ready):
 		print("Active Players: ", possible_players) #Test statement showing possible players whos turn it could be
 		active_player = possible_players.pop_front() #Set the active_player to whomever is at the front of the sorted possible_players array, and remove them from the array
 		command_menu.active_player = active_player #Set the command menu to show the correct moves for this player
-		command_menu.fill_choice_options() #Fill in the options for the command menu based on the array defined in command_menu script
+		#command_menu.fill_choice_options() #Fill in the options for the command menu based on the array defined in command_menu script
 		print("Shifting turn from ", last_player, " to ", active_player) #Test line to show working logic
 		text_box.text = "It's " + active_player.name + "'s Turn!" #Change the text in the text box
 		active_player_turn = true #Set active_player_turn to true, this stops the list from instantly looping through all the players to the last, and allows all the ones in the queue to have a turn
@@ -146,4 +146,3 @@ func _on_battle_ui_target_menu_opened() -> void:
 				available_targets.append(child)
 	
 	command_menu.targets = available_targets
-	print(command_menu.targets)

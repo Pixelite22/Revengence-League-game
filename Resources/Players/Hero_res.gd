@@ -37,24 +37,24 @@ func create_instance():
 	instance.health = max_health #Set's health as it should
 	return instance #Returns the character to be called.
 
-#Function handles speed
+#Function handles stat setting
 func stats():
-	health = max_health
-	melee = base_melee
-	power = base_power
-	defense = base_defense
+	health = max_health #Set Health
+	melee = base_melee #Set melee
+	power = base_power #Set power
+	defense = base_defense #Set defense
 	max_time = 100 - base_speed #Subtract speed from 100 to find how many ticks each turn will take
 	time = max_time #Set time equal to those ticks.  This variable will be edited in other scripts
 
-#Basic Attacks
-func physical(target: Player):
+#Basic Attacks`
+func physical(target: Player): #function for physical
 	print(name, " attacks ", target.name, " with a physical attack!!!")
-	target.hero_stats.health -= melee
+	target.hero_stats.health -= melee #subtract melee stat from the targets health
 	print(target.hero_stats.health)
 
-func distance(target):
+func distance(target): #function for distance
 	print(name, " attacks ", target.name, " with a distance attack!!!")
-	target.hero_stats.health -= power
+	target.hero_stats.health -= power #subtract power stat from the targets health
 
 
 #Impact Attacks
