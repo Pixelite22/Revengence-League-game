@@ -30,6 +30,10 @@ var melee: int
 var power: int
 var defense: int
 
+#Condition Flags
+@export_group("Status Effects")
+@export var stun := false
+
 
 #Adds an instance of a character
 func create_instance():
@@ -56,10 +60,14 @@ func distance(target): #function for distance
 	print(name, " attacks ", target.name, " with a distance attack!!!")
 	target.hero_stats.health -= power #subtract power stat from the targets health
 
+#Condition Functions
+func stun_disable():
+	stun = false
 
 #Impact Attacks
 func giga_punch(target):
-	pass
+	target.hero_stats.health -= 2 * melee
+	target.hero_stats.stun = true
 
 func mega_slam(target):
 	pass
