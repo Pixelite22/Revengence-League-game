@@ -25,26 +25,26 @@ func _ready() -> void: #When loading into the scene
 func fill_choice_options(type):
 	if active_player: #If active_player isn't null
 		choice_options.clear() #Clear the choice_options array
-		if type == "base":
+		if type == "base": #If menu is base, add the correct options
 			choice_options.append("Attack")
 			choice_options.append("Special")
 			choice_options.append("Defend")
 			choice_options.append("Items")
 			choice_options.append("Run")
 			choice_options.append("Skip Turn")
-		if type == "attack":
-			for options in active_player.hero_command_deck.attack_type:
-				choice_options.append(options)
-		if type == "special":
-			for options in active_player.hero_command_deck.special_moves: #and for options in the current players command deck
+#			for option in choice_options:
+#				add_item(choice_options[option], null, true)
+		if type == "attack": #If it is attack
+			for options in active_player.hero_command_deck.attack_type: #Loop through the options in the command deck
+				choice_options.append(options) #and add them to the menu
+		if type == "special": #If special
+			for options in active_player.hero_command_deck.special_moves: # for options in the current players command deck
 				choice_options.append(options) #Append those options to the choice_options array
 		if type == "items":
 			pass
 		if type == "target":
-			for enemies in targets:
-				choice_options.append(enemies)
-				
-			
+			for enemies in targets: #For enemies in the target array
+				choice_options.append(enemies) #Add the targets to the menu
 
 #Direct to the correct function based on choice
 func _on_item_selected(index: int) -> void:
@@ -157,9 +157,6 @@ func special_menu(index: int):
 	if index != choice_options.size():
 		print("Move Selected: ", active_player.hero_command_deck.special_moves[index])
 		action = active_player.hero_command_deck.special_moves[index]
-		#This works so best way to continue from here is to make if statements that lead to functions
-		#if active_player.hero_command_deck.special_moves[index] == move name here:
-		#	move_name()
 		menu_transition("target")
 	if index == choice_options.size() :
 		menu_transition("base")
@@ -174,7 +171,12 @@ func item_menu(index: int):
 
 func target_menu(index: int): #Target Menu function
 	if index != targets.size(): #If the chosen option is anything but the final one
-		process_attack(action, targets[index]) #send the action set earlier in either special_menu or attack_menu and the chosen target to the process attack function
+		if action == "physical" or action == "distance":
+			process_attack(action, targets[index]) #send the action set earlier in either special_menu or attack_menu and the chosen target to the process attack function
+		if action == "Giga Punch":
+			active_player.hero_stats.giga_punch(targets[index])
+			attack_turn_end()
+			
 	if index == targets.size(): #if the chosen option is the final one.  
 		menu_transition(last_menu) #Transition to whatever the last menu is
 
@@ -184,5 +186,16 @@ func process_attack(action: String, targets: Player):
 	if action == "distance": #if action is set to "distance"
 		active_player.hero_stats.distance(targets) #call the distance function from the active player's hero_stats
 	
+	attack_turn_end()
+
+func attack_turn_end():
 	menu_transition("base") #Send menu back to the basic menu
 	turn_ended.emit(false) #Emit turn end to Start next players turn
+
+func disable_menus():
+	for item in range(get_item_count()):
+		set_item_disabled(item, true)
+
+func enable_menus():
+	for item in range(get_item_count()):
+		set_item_disabled(item, false)

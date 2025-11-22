@@ -72,18 +72,17 @@ func _ready() -> void:
 	epiphany.hero_stats.player_tag = true
 	
 	#connecting the turn_ended signal to turn_change from the command_menu script
-	if not command_menu.turn_ended.is_connected(turn_change):
-		command_menu.turn_ended.connect(turn_change)
+	if not command_menu.turn_ended.is_connected(turn_ready_check):
+		command_menu.turn_ended.connect(turn_ready_check)
 	#connecting the turn_count_reached signal to turn_change from the turn_order script
-	if not turn_order.turn_count_reached.is_connected(turn_change):
-		turn_order.turn_count_reached.connect(turn_change)
+	if not turn_order.turn_count_reached.is_connected(turn_ready_check):
+		turn_order.turn_count_reached.connect(turn_ready_check)
 	
 	#Defining the turn queue array, setting a hard first turn active player due to Spindle's foresight, and setting all the things needed for him
 	#Realizing I should make the spindle thing into it's own function that can probably be called for all turns...
 	turn_queue = [spindle, tag_team, dr_midnight, red_rocket, epiphany, impact]
 	active_player = spindle
 	command_menu.active_player = active_player
-#	command_menu.fill_choice_options()
 	text_box.text = active_player.name + " percieves a fight!  He moves first!"
 	#Adds Characters symbols to timeline dynamically
 	turn_countdowns.timeline_creation(turn_queue)
@@ -94,12 +93,19 @@ func _ready() -> void:
 			child.hero_stats.stats()
 			print(child.name, " is geting there speed set to ", child.hero_stats.time)
 
-#turn change logic function
-func turn_change(turn_ready):
-	print("Turn Change Reached!") #test line to ensure it was reached due to multiple signals getting us here
+func turn_ready_check(turn_ready):
 	if turn_ready == null or turn_ready == false: #If it is nobody's turn, or turn_ready signal is false
 		turn_order.turn_countdown(turn_queue) #Call turn_countdown function in the turn_order script.  It handles counting through the ticks to assign turns
 		turn_ready = turn_order.turn_reached #Whatever the turn_reached variable is in turn_orderm turn_ready gets assigned that
+	elif turn_ready:
+		turn_change()
+
+#turn change logic function
+func turn_change():
+	print("Turn Change Reached!") #test line to ensure it was reached due to multiple signals getting us here
+#	if turn_ready == null or turn_ready == false: #If it is nobody's turn, or turn_ready signal is false
+#		turn_order.turn_countdown(turn_queue) #Call turn_countdown function in the turn_order script.  It handles counting through the ticks to assign turns
+#		turn_ready = turn_order.turn_reached #Whatever the turn_reached variable is in turn_orderm turn_ready gets assigned that
 	
 	#This handles logic of multiple players sharing a turn, as well as just being what all turns go through
 	var possible_players : Array = [] #Start an empty array for players whos turn it is
@@ -114,16 +120,25 @@ func turn_change(turn_ready):
 		print("Active Players: ", possible_players) #Test statement showing possible players whos turn it could be
 		active_player = possible_players.pop_front() #Set the active_player to whomever is at the front of the sorted possible_players array, and remove them from the array
 		command_menu.active_player = active_player #Set the command menu to show the correct moves for this player
-		#command_menu.fill_choice_options() #Fill in the options for the command menu based on the array defined in command_menu script
 		print("Shifting turn from ", last_player, " to ", active_player) #Test line to show working logic
-		text_box.text = "It's " + active_player.name + "'s Turn!" #Change the text in the text box
-		active_player_turn = true #Set active_player_turn to true, this stops the list from instantly looping through all the players to the last, and allows all the ones in the queue to have a turn
-		last_player = active_player #Shift active player to last player for the test message (Will need to change if last_player is a needed variable in the future)
-		turn_order.turn_reset(last_player) #reset the turn count of the new last_player (again might need to play with placement of this
+		if active_player.hero_stats.stun:
+			command_menu.disable_menus()
+			text_box.text = active_player.name + " is stunned!  Their turn is skipped!"
+			active_player.hero_stats.stun_disable()
+			await get_tree().create_timer(1).timeout
+			active_player_turn = true #Set active_player_turn to true, this stops the list from instantly looping through all the players to the last, and allows all the ones in the queue to have a turn
+			last_player = active_player #Shift active player to last player for the test message (Will need to change if last_player is a needed variable in the future)
+			turn_order.turn_reset(last_player) #reset the turn count of the new last_player (again might need to play with placement of this
+			turn_ready_check(false) #Push to the next turn
+			command_menu.enable_menus() #Reenable the menus for those after the stunned player
+		else:
+			text_box.text = "It's " + active_player.name + "'s Turn!" #Change the text in the text box
+			active_player_turn = true #Set active_player_turn to true, this stops the list from instantly looping through all the players to the last, and allows all the ones in the queue to have a turn
+			last_player = active_player #Shift active player to last player for the test message (Will need to change if last_player is a needed variable in the future)
+			turn_order.turn_reset(last_player) #reset the turn count of the new last_player (again might need to play with placement of this
 		
-		
-	if possible_players.is_empty(): #when the possible_players list is empty
-		turn_ready = false #Set turn_ready to false (might need to change variable name to reflect it better as it is untrue when a turn is done)
+#	if possible_players.is_empty(): #when the possible_players list is empty
+#		turn_ready = false #Set turn_ready to false (might need to change variable name to reflect it better as it is untrue when a turn is done)
 
 func speed_comparison(p1, p2): #Comparison function so the turn logic can sort simultaneous turns correctly
 	if p1.hero_stats.base_speed > p2.hero_stats.base_speed: #Whomever is faster, goes first
@@ -138,11 +153,11 @@ func charcter_marker_placement(player): #possibly defunct function to correctly 
 	character_marker.play()
 
 
-func _on_battle_ui_target_menu_opened() -> void:
-	var available_targets := []
-	for child in get_children():
-		if child is Player:
-			if child.hero_stats.player_tag == false:
-				available_targets.append(child)
+func _on_battle_ui_target_menu_opened() -> void: 
+	var available_targets := [] #Define an array for avaialable people to target with an action
+	for child in get_children(): #For all children in the tree
+		if child is Player: #If those children are Players
+			if child.hero_stats.player_tag == false: #And they they don't have a player tag
+				available_targets.append(child) #Make them available by placing them into the array
 	
-	command_menu.targets = available_targets
+	command_menu.targets = available_targets #fill the array targets in the command menu node with the targets chosen as available
