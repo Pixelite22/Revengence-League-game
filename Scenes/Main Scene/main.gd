@@ -1,5 +1,8 @@
 extends Node2D
 
+signal turn_started(active_player_stats : Hero)
+signal effects_processed()
+
 #Character Variables.  Might be removing when I add dynamic character choice
 @onready var tag_team: Player = $"Tag Team"
 @onready var dr_midnight: Player = $"Dr Midnight"
@@ -121,24 +124,79 @@ func turn_change():
 		active_player = possible_players.pop_front() #Set the active_player to whomever is at the front of the sorted possible_players array, and remove them from the array
 		command_menu.active_player = active_player #Set the command menu to show the correct moves for this player
 		print("Shifting turn from ", last_player, " to ", active_player) #Test line to show working logic
-		if active_player.hero_stats.stun:
-			command_menu.disable_menus()
-			text_box.text = active_player.name + " is stunned!  Their turn is skipped!"
-			active_player.hero_stats.stun_disable()
-			await get_tree().create_timer(1).timeout
-			active_player_turn = true #Set active_player_turn to true, this stops the list from instantly looping through all the players to the last, and allows all the ones in the queue to have a turn
-			last_player = active_player #Shift active player to last player for the test message (Will need to change if last_player is a needed variable in the future)
-			turn_order.turn_reset(last_player) #reset the turn count of the new last_player (again might need to play with placement of this
-			turn_ready_check(false) #Push to the next turn
-			command_menu.enable_menus() #Reenable the menus for those after the stunned player
-		else:
-			text_box.text = "It's " + active_player.name + "'s Turn!" #Change the text in the text box
-			active_player_turn = true #Set active_player_turn to true, this stops the list from instantly looping through all the players to the last, and allows all the ones in the queue to have a turn
-			last_player = active_player #Shift active player to last player for the test message (Will need to change if last_player is a needed variable in the future)
-			turn_order.turn_reset(last_player) #reset the turn count of the new last_player (again might need to play with placement of this
+		text_box.text = "It's " + active_player.name + "'s Turn!" #Change the text in the text box
+		turn_started.emit(active_player.hero_stats)
+		
+		await effects_processed
+		
+		
+		active_player_turn = true #Set active_player_turn to true, this stops the list from instantly looping through all the players to the last, and allows all the ones in the queue to have a turn
+		last_player = active_player #Shift active player to last player for the test message (Will need to change if last_player is a needed variable in the future)
+		turn_order.turn_reset(last_player) #reset the turn count of the new last_player (again might need to play with placement of this
 		
 #	if possible_players.is_empty(): #when the possible_players list is empty
 #		turn_ready = false #Set turn_ready to false (might need to change variable name to reflect it better as it is untrue when a turn is done)
+
+func _on_turn_started(active_player_stats: Hero) -> void:
+	if active_player_stats.stun:
+		command_menu.disable_menus()
+		text_box.text = active_player.name + " is stunned!  Their turn is skipped!"
+		active_player.hero_stats.stun_disable()
+		await get_tree().create_timer(1).timeout
+#		active_player_turn = true #Set active_player_turn to true, this stops the list from instantly looping through all the players to the last, and allows all the ones in the queue to have a turn
+		last_player = active_player #Shift active player to last player for the test message (Will need to change if last_player is a needed variable in the future)
+		turn_order.turn_reset(last_player) #reset the turn count of the new last_player (again might need to play with placement of this
+		turn_ready_check(false) #Push to the next turn
+		command_menu.enable_menus() #Reenable the menus for those after the stunned player
+	
+	
+	if active_player_stats.burn:
+		var burn_heal
+		var burn_dmg = randi_range(1, 5)
+		
+		active_player_stats.health -= burn_dmg
+		print(active_player.name, " was burned for ", burn_dmg, " damage!")
+		burn_heal = randi_range(1, 5)
+		if burn_heal == 1:
+			active_player_stats.burn = false
+			print(active_player.name, " healed the burn!")
+	
+	
+	if active_player_stats.poison:
+		var psn_level_change
+		var psn_dmg
+		
+		if active_player_stats.poison_level == 1:
+			psn_dmg = randi_range(1, 3)
+			active_player_stats.health -= psn_dmg
+		if active_player_stats.poison_level == 2:
+			psn_dmg = randi_range(3, 7)
+			active_player_stats.health -= psn_dmg
+		if active_player_stats.poison_level == 3:
+			psn_dmg = randi_range(7, 12)
+			active_player_stats.health -= psn_dmg
+		print(active_player.name, " was poisoned for ", psn_dmg, " damage!")
+		
+		psn_level_change = randi_range(1, 10)
+		if psn_level_change == 1:
+			active_player_stats.poison = false
+			print(active_player.name, " healed from poison.")
+		if psn_level_change >= 7:
+			active_player_stats.poison_level += 1
+			print(active_player.name, " Poison got worse")
+	
+	
+	if active_player_stats.fear:
+		pass
+	
+	
+	if active_player_stats.sleep:
+		pass
+	
+	
+	
+	effects_processed.emit()
+
 
 func speed_comparison(p1, p2): #Comparison function so the turn logic can sort simultaneous turns correctly
 	if p1.hero_stats.base_speed > p2.hero_stats.base_speed: #Whomever is faster, goes first

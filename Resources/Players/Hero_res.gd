@@ -33,7 +33,14 @@ var defense: int
 #Condition Flags
 @export_group("Status Effects")
 @export var stun := false
+@export var burn := false
+@export var poison := false
+@export var fear := false
+@export var sleep := false
 
+#Posion Logic
+@export_group("Status Details")
+@export var poison_level : int = clamp(0, 0, 3)
 
 #Adds an instance of a character
 func create_instance():

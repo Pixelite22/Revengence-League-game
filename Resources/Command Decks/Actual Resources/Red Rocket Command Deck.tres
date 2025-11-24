@@ -7,5 +7,7 @@ script = ExtResource("1_fdcvw")
 character = 3
 physical_attack_type = ""
 distance_attack_type = ""
-special_moves = {}
+special_moves = {
+0: "Evasive Maneuvours"
+}
 metadata/_custom_type_script = "uid://okn5if8xltlc"
