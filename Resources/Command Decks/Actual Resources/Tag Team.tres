@@ -7,5 +7,7 @@ script = ExtResource("1_nrtf7")
 character = 5
 physical_attack_type = "Punch"
 distance_attack_type = "Meteor Hammer"
-special_moves = {}
-metadata/_custom_type_script = "uid://okn5if8xltlc"                                                                                                                                                                                                                                                                                                                                                                                                                                     
+special_moves = {
+0: "Pack Tactics"
+}
+metadata/_custom_type_script = "uid://okn5if8xltlc"
