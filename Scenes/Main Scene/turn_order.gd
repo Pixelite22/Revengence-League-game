@@ -13,7 +13,7 @@ func turn_countdown(fighters: Array): #the array containing the 6 characters on 
 #		print(player.hero_stats.name, " has ", player.hero_stats.time, " time counters left.") #Debug code
 	
 	for player in fighters: #Once again looping through the players in the fighter array
-		if player.hero_stats.time <= 0: #If the ticks are at or below 0
+		if player.hero_stats.time == 0: #If the ticks are at or below 0
 			turn_reached = true #Set the turn reached flag to true
 #			print(turn_reached) #Debug turn_reached message to ensure things are going to plan
 			turn_count_reached.emit(turn_reached) #Emit the turn_count_reached signal with the turn_reached flag which will be caught by the turn_change function in main
