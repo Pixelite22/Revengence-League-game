@@ -97,6 +97,7 @@ func _ready() -> void:
 			print(child.name, " is geting there speed set to ", child.hero_stats.time)
 
 func turn_ready_check(turn_ready):
+	print("Turn Ready Check reached")
 	if turn_ready == null or turn_ready == false: #If it is nobody's turn, or turn_ready signal is false
 		turn_order.turn_countdown(turn_queue) #Call turn_countdown function in the turn_order script.  It handles counting through the ticks to assign turns
 		turn_ready = turn_order.turn_reached #Whatever the turn_reached variable is in turn_orderm turn_ready gets assigned that
@@ -128,9 +129,9 @@ func turn_change():
 		turn_started.emit(active_player.hero_stats)
 		
 		await effects_processed
+		print("Effects have been processed")
 		
-		
-		active_player_turn = true #Set active_player_turn to true, this stops the list from instantly looping through all the players to the last, and allows all the ones in the queue to have a turn
+		#active_player_turn = true #Set active_player_turn to true, this stops the list from instantly looping through all the players to the last, and allows all the ones in the queue to have a turn
 		last_player = active_player #Shift active player to last player for the test message (Will need to change if last_player is a needed variable in the future)
 		turn_order.turn_reset(last_player) #reset the turn count of the new last_player (again might need to play with placement of this
 		
@@ -138,62 +139,62 @@ func turn_change():
 #		turn_ready = false #Set turn_ready to false (might need to change variable name to reflect it better as it is untrue when a turn is done)
 
 func _on_turn_started(active_player_stats: Hero) -> void:
+	#Stun Logic
 	if active_player_stats.stun:
+		effects_processed.emit()
 		command_menu.disable_menus()
 		text_box.text = active_player.name + " is stunned!  Their turn is skipped!"
 		active_player.hero_stats.stun_disable()
 		await get_tree().create_timer(1).timeout
 #		active_player_turn = true #Set active_player_turn to true, this stops the list from instantly looping through all the players to the last, and allows all the ones in the queue to have a turn
-		last_player = active_player #Shift active player to last player for the test message (Will need to change if last_player is a needed variable in the future)
-		turn_order.turn_reset(last_player) #reset the turn count of the new last_player (again might need to play with placement of this
+		#last_player = active_player #Shift active player to last player for the test message (Will need to change if last_player is a needed variable in the future)
+		#turn_order.turn_reset(last_player) #reset the turn count of the new last_player (again might need to play with placement of this
 		turn_ready_check(false) #Push to the next turn
 		command_menu.enable_menus() #Reenable the menus for those after the stunned player
 	
-	
-	if active_player_stats.burn:
+	#Burn Logic
+	elif active_player_stats.burn:
 		var burn_heal
 		var burn_dmg = randi_range(1, 5)
 		
 		active_player_stats.health -= burn_dmg
-		print(active_player.name, " was burned for ", burn_dmg, " damage!")
+		text_box.text += "\nThey were burned for " + str(burn_dmg) + " damage!!"
 		burn_heal = randi_range(1, 5)
 		if burn_heal == 1:
 			active_player_stats.burn = false
-			print(active_player.name, " healed the burn!")
+			text_box.text += "\nBut!  They healed from the burn after!!!"
 	
-	
-	if active_player_stats.poison:
+	#Posion Logic
+	elif active_player_stats.poison:
 		var psn_level_change
 		var psn_dmg
 		
 		if active_player_stats.poison_level == 1:
 			psn_dmg = randi_range(1, 3)
 			active_player_stats.health -= psn_dmg
-		if active_player_stats.poison_level == 2:
+		elif active_player_stats.poison_level == 2:
 			psn_dmg = randi_range(3, 7)
 			active_player_stats.health -= psn_dmg
-		if active_player_stats.poison_level == 3:
+		elif active_player_stats.poison_level == 3:
 			psn_dmg = randi_range(7, 12)
 			active_player_stats.health -= psn_dmg
-		print(active_player.name, " was poisoned for ", psn_dmg, " damage!")
+		text_box.text += "\nThey took " + str(psn_dmg) + " poison damage!"
 		
 		psn_level_change = randi_range(1, 10)
 		if psn_level_change == 1:
 			active_player_stats.poison = false
-			print(active_player.name, " healed from poison.")
-		if psn_level_change >= 7:
+			text_box.text += "\nBut they worked the poison out of their system!!!"
+		elif psn_level_change >= 7:
 			active_player_stats.poison_level += 1
-			print(active_player.name, " Poison got worse")
+			text_box.text += "\nAnd the poison has spread..."
 	
-	
-	if active_player_stats.fear:
+	#Fear Logic
+	elif active_player_stats.fear:
 		pass
 	
-	
-	if active_player_stats.sleep:
+	#Sleep Logic
+	elif active_player_stats.sleep:
 		pass
-	
-	
 	
 	effects_processed.emit()
 

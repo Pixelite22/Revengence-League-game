@@ -21,4 +21,5 @@ burn = true
 poison = false
 fear = false
 sleep = false
+poison_level = 0
 metadata/_custom_type_script = "uid://datlkv8a5uak0"
