@@ -123,17 +123,28 @@ func turn_change():
 	while not possible_players.is_empty() && not active_player_turn: #While the possible players array is not empty and active_player_turn is false
 		print("Active Players: ", possible_players) #Test statement showing possible players whos turn it could be
 		active_player = possible_players.pop_front() #Set the active_player to whomever is at the front of the sorted possible_players array, and remove them from the array
+		
+		if active_player == last_player: #If the last player is the same as the current one (i.e. double turn)
+			if possible_players.size() > 1: #If there is another player in the queue
+				turn_ready_check(true) #loop back to skip the current ones turn but still move ot the next in queue
+				break #break this loop
+			else: #if there isn't another in the queue
+				turn_ready_check(false) #loop back to skip the current ones turn and move the queue along
+				break #break this loop
+		
 		command_menu.active_player = active_player #Set the command menu to show the correct moves for this player
 		print("Shifting turn from ", last_player, " to ", active_player) #Test line to show working logic
 		text_box.text = "It's " + active_player.name + "'s Turn!" #Change the text in the text box
 		turn_started.emit(active_player.hero_stats)
+		last_player = active_player #Shift active player to last player for the test message (Will need to change if last_player is a needed variable in the future)
+		turn_order.turn_reset(last_player) #reset the turn count of the new last_player (again might need to play with placement of this
 		
 		await effects_processed
 		print("Effects have been processed")
+		command_menu.enable_menus()
 		
 		#active_player_turn = true #Set active_player_turn to true, this stops the list from instantly looping through all the players to the last, and allows all the ones in the queue to have a turn
-		last_player = active_player #Shift active player to last player for the test message (Will need to change if last_player is a needed variable in the future)
-		turn_order.turn_reset(last_player) #reset the turn count of the new last_player (again might need to play with placement of this
+		#turn_order.turn_reset(last_player) #reset the turn count of the new last_player (again might need to play with placement of this
 		
 #	if possible_players.is_empty(): #when the possible_players list is empty
 #		turn_ready = false #Set turn_ready to false (might need to change variable name to reflect it better as it is untrue when a turn is done)
@@ -141,16 +152,16 @@ func turn_change():
 func _on_turn_started(active_player_stats: Hero) -> void:
 	#Stun Logic
 	if active_player_stats.stun:
-		effects_processed.emit()
 		command_menu.disable_menus()
 		text_box.text = active_player.name + " is stunned!  Their turn is skipped!"
 		active_player.hero_stats.stun_disable()
+		
 		await get_tree().create_timer(1).timeout
-#		active_player_turn = true #Set active_player_turn to true, this stops the list from instantly looping through all the players to the last, and allows all the ones in the queue to have a turn
-		#last_player = active_player #Shift active player to last player for the test message (Will need to change if last_player is a needed variable in the future)
-		#turn_order.turn_reset(last_player) #reset the turn count of the new last_player (again might need to play with placement of this
-		turn_ready_check(false) #Push to the next turn
-		command_menu.enable_menus() #Reenable the menus for those after the stunned player
+		
+		effects_processed.emit()
+		#turn_ready_check(false) #Push to the next turn
+		return
+		#command_menu.enable_menus() #Reenable the menus for those after the stunned player
 	
 	#Burn Logic
 	elif active_player_stats.burn:
