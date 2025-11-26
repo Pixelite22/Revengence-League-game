@@ -156,7 +156,7 @@ func _on_turn_started(active_player_stats: Hero) -> void:
 		text_box.text = active_player.name + " is stunned!  Their turn is skipped!"
 		active_player.hero_stats.stun_disable()
 		
-		await get_tree().create_timer(1).timeout
+		await get_tree().create_timer(3).timeout
 		
 		effects_processed.emit()
 		#turn_ready_check(false) #Push to the next turn
@@ -164,7 +164,7 @@ func _on_turn_started(active_player_stats: Hero) -> void:
 		#command_menu.enable_menus() #Reenable the menus for those after the stunned player
 	
 	#Burn Logic
-	elif active_player_stats.burn:
+	if active_player_stats.burn:
 		var burn_heal
 		var burn_dmg = randi_range(1, 5)
 		
@@ -176,7 +176,7 @@ func _on_turn_started(active_player_stats: Hero) -> void:
 			text_box.text += "\nBut!  They healed from the burn after!!!"
 	
 	#Posion Logic
-	elif active_player_stats.poison:
+	if active_player_stats.poison:
 		var psn_level_change
 		var psn_dmg
 		
@@ -200,13 +200,26 @@ func _on_turn_started(active_player_stats: Hero) -> void:
 			text_box.text += "\nAnd the poison has spread..."
 	
 	#Fear Logic
-	elif active_player_stats.fear:
+	if active_player_stats.fear:
 		pass
 	
 	#Sleep Logic
-	elif active_player_stats.sleep:
-		pass
-	
+	if active_player_stats.sleep:
+		var wake_chance = randi_range(0, 5)
+		if wake_chance == 0:
+			active_player_stats.sleep = false
+			text_box.text += "\n" + active_player.name + " woke up!"
+			
+		if active_player_stats.sleep:
+			command_menu.disable_menus()
+			text_box.text += "\n" + active_player.name + " is asleep!  They can't attack until the wake up!"
+			
+			await get_tree().create_timer(3).timeout
+			
+			turn_ready_check(false)
+			effects_processed.emit()
+			return
+		
 	effects_processed.emit()
 
 
