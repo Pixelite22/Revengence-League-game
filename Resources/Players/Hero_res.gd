@@ -40,7 +40,7 @@ var defense: int
 
 #Posion Logic
 @export_group("Status Details")
-@export var poison_level : int = clamp(0, 0, 3)
+@export var poison_level : int = clamp(1, 1, 3)
 
 #Adds an instance of a character
 func create_instance():
