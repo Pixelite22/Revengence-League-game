@@ -21,5 +21,6 @@ burn = false
 poison = true
 fear = false
 sleep = false
+healing_light = false
 poison_level = 1
 metadata/_custom_type_script = "uid://datlkv8a5uak0"

@@ -32,11 +32,15 @@ var defense: int
 
 #Condition Flags
 @export_group("Status Effects")
+#Bad
 @export var stun := false
 @export var burn := false
 @export var poison := false
 @export var fear := false
 @export var sleep := false
+@export var defeated := false
+#Good
+@export var healing_light := false
 
 #Posion Logic
 @export_group("Status Details")
@@ -50,7 +54,7 @@ func create_instance():
 
 #Function handles stat setting
 func stats():
-	health = max_health #Set Health
+	health = clampi(max_health, 0, max_health) #Set Health
 	melee = base_melee #Set melee
 	power = base_power #Set power
 	defense = base_defense #Set defense

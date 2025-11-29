@@ -56,6 +56,9 @@ func _process(delta: float) -> void:
 	#This calls the timeline function in turn_countdown_ui to control the
 	#timeline in game for turn order.  The symbols move to show who's turn is up
 	turn_countdowns.timeline(turn_queue)
+	
+	if active_player.hero_stats.health <= 0:
+		active_player.hero_stats.defeated = true
 
 
 #The happens only once when the game is booted function
@@ -143,6 +146,7 @@ func turn_change():
 		print("Effects have been processed")
 		command_menu.enable_menus()
 		
+		print(active_player.hero_stats.health)
 		#active_player_turn = true #Set active_player_turn to true, this stops the list from instantly looping through all the players to the last, and allows all the ones in the queue to have a turn
 		#turn_order.turn_reset(last_player) #reset the turn count of the new last_player (again might need to play with placement of this
 		
@@ -150,18 +154,7 @@ func turn_change():
 #		turn_ready = false #Set turn_ready to false (might need to change variable name to reflect it better as it is untrue when a turn is done)
 
 func _on_turn_started(active_player_stats: Hero) -> void:
-	#Stun Logic
-	if active_player_stats.stun:
-		command_menu.disable_menus()
-		text_box.text = active_player.name + " is stunned!  Their turn is skipped!"
-		active_player.hero_stats.stun_disable()
-		
-		await get_tree().create_timer(3).timeout
-		
-		effects_processed.emit()
-		#turn_ready_check(false) #Push to the next turn
-		return
-		#command_menu.enable_menus() #Reenable the menus for those after the stunned player
+	
 	
 	#Burn Logic
 	if active_player_stats.burn:
@@ -201,7 +194,15 @@ func _on_turn_started(active_player_stats: Hero) -> void:
 	
 	#Fear Logic
 	if active_player_stats.fear:
+		#Unsure what fear will do, probably something along the lines of low chance to cause an enemy to run, effectively killing them.
 		pass
+	
+	if active_player_stats.healing_light:
+		var heal_amt = randi_range(1, 5)
+		active_player_stats.health += heal_amt
+		if active_player_stats.health >= active_player_stats.max_health:
+			active_player_stats.health == active_player_stats.max_health
+		text_box.text += "\n and through the power of healing light, they healed back " + str(heal_amt)
 	
 	#Sleep Logic
 	if active_player_stats.sleep:
@@ -219,7 +220,30 @@ func _on_turn_started(active_player_stats: Hero) -> void:
 			turn_ready_check(false)
 			effects_processed.emit()
 			return
+	
+		#Stun Logic
+	if active_player_stats.stun:
+		command_menu.disable_menus()
+		text_box.text = active_player.name + " is stunned!  Their turn is skipped!"
+		active_player.hero_stats.stun_disable()
 		
+		await get_tree().create_timer(3).timeout
+		
+		effects_processed.emit()
+		#turn_ready_check(false) #Push to the next turn
+		return
+		#command_menu.enable_menus() #Reenable the menus for those after the stunned player
+	
+	if active_player_stats.defeated:
+		command_menu.disable_menus()
+		text_box.text = active_player.name + " was defeated, moving to next player..."
+		
+		await get_tree().create_timer(3).timeout
+		
+		effects_processed.emit()
+		turn_ready_check(false)
+		return
+	
 	effects_processed.emit()
 
 
