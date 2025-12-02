@@ -154,97 +154,109 @@ func turn_change():
 #		turn_ready = false #Set turn_ready to false (might need to change variable name to reflect it better as it is untrue when a turn is done)
 
 func _on_turn_started(active_player_stats: Hero) -> void:
-	
+	#This function handles all the status effects
 	
 	#Burn Logic
-	if active_player_stats.burn:
-		var burn_heal
-		var burn_dmg = randi_range(1, 5)
+	if active_player_stats.burn: #if player has burn tag
+		var burn_heal : int #Define a variable for possibly healing from the burn
+		var burn_dmg = randi_range(1, 5) #Define a variable that sets itself to a random nummber between 1 and 5
 		
-		active_player_stats.health -= burn_dmg
-		text_box.text += "\nThey were burned for " + str(burn_dmg) + " damage!!"
-		burn_heal = randi_range(1, 5)
-		if burn_heal == 1:
-			active_player_stats.burn = false
-			text_box.text += "\nBut!  They healed from the burn after!!!"
+		active_player_stats.health -= burn_dmg #Subtract the damage from the active player
+		text_box.text += "\n They were burned for " + str(burn_dmg) + " damage!!" #Output a message calling attention to the damage
+		burn_heal = randi_range(1, 5) #roll a d3 for healing chance
+		if burn_heal == 1: #If they rolled a 1
+			active_player_stats.burn = false #They are no longer burned
+			text_box.text += "\n But!  They healed from the burn after!!!" #Output a message calling attention to healing from burn
 	
 	#Posion Logic
-	if active_player_stats.poison:
-		var psn_level_change
-		var psn_dmg
+	if active_player_stats.poison: #If player has a poison tag
+		var psn_level_change #variable define for possible change in poison severity
+		var psn_dmg = clampi(active_player_stats.poison_level, 0, 3)#variable for poison damage clamping the value between 0 and 3
 		
-		if active_player_stats.poison_level == 1:
-			psn_dmg = randi_range(1, 3)
-			active_player_stats.health -= psn_dmg
-		elif active_player_stats.poison_level == 2:
-			psn_dmg = randi_range(3, 7)
-			active_player_stats.health -= psn_dmg
-		elif active_player_stats.poison_level == 3:
-			psn_dmg = randi_range(7, 12)
-			active_player_stats.health -= psn_dmg
-		text_box.text += "\nThey took " + str(psn_dmg) + " poison damage!"
+		if active_player_stats.poison_level == 1: #If active player is poisoned with severity 1 poisoning
+			psn_dmg = randi_range(1, 3) #Roll 1 - 3 damage
+			active_player_stats.health -= psn_dmg #Deal rolled damage 
+		elif active_player_stats.poison_level == 2: #If active player is poisoned with severity 2 poisoning
+			psn_dmg = randi_range(3, 7) #roll 3-7 damage
+			active_player_stats.health -= psn_dmg #Deal rolled damage
+		elif active_player_stats.poison_level == 3: #If active player is poisoned with severity 3 poisoning
+			psn_dmg = randi_range(7, 12) #Roll 7-12 damage
+			active_player_stats.health -= psn_dmg #Deal rolled damage
+		text_box.text += "\n They took " + str(psn_dmg) + " poison damage!" #Call attention to damage taken in textbox
 		
-		psn_level_change = randi_range(1, 10)
-		if psn_level_change == 1:
-			active_player_stats.poison = false
-			text_box.text += "\nBut they worked the poison out of their system!!!"
-		elif psn_level_change >= 7:
-			active_player_stats.poison_level += 1
-			text_box.text += "\nAnd the poison has spread..."
+		psn_level_change = randi_range(1, 10) #Roll for the chance to change level of poison, or to heal from it
+		if psn_level_change == 1: #If rolled a 1
+			active_player_stats.poison = false #heal from the poison condition
+			text_box.text += "\n But they worked the poison out of their system!!!" #message
+		elif psn_level_change >= 7: #If rolled a 7 or higher
+			active_player_stats.poison_level += 1 #Make the poison worse, won't go over 3 due to the clamp
+			text_box.text += "\n And the poison has spread..." #message
 	
 	#Fear Logic
-	if active_player_stats.fear:
-		#Unsure what fear will do, probably something along the lines of low chance to cause an enemy to run, effectively killing them.
-		pass
+	if active_player_stats.fear: #if player is scared
+		if not active_player_stats.fear_chk: #if the player hasn't been checked for fear slow down
+			active_player_stats.max_time *= 2 #Slow down player
+			active_player_stats.fear_chk = true #Show that they were checked for fear slow down
+		
+		if active_player_stats.fear_ctr > 0: #If the fear counter is greater then 0
+			active_player_stats.fear_ctr -= 1 #decrement the time they are scared
+			text_box.text += "\n They are scared!  They aren't sure when to attack!" #message
+		else: #if fear counter is less then or equal to 0
+			active_player_stats.fear_chk = false #Reset the fear check
+			active_player_stats.max_time /= 2 #Speed the player back up to what they should be.
+			text_box.text += "\n They got over the fear.  They are more certain about when to attack!" #message
 	
-	if active_player_stats.healing_light:
-		var heal_amt = randi_range(1, 5)
-		active_player_stats.health += heal_amt
-		if active_player_stats.health >= active_player_stats.max_health:
-			active_player_stats.health == active_player_stats.max_health
-		text_box.text += "\n and through the power of healing light, they healed back " + str(heal_amt)
+	#Healing light 
+	if active_player_stats.healing_light: #If the player is blessed with healing light
+		var heal_amt = randi_range(1, 5) #Define a variable for the amount they will heal by between 1 and 5
+		active_player_stats.health += heal_amt #heal them that much
+		if active_player_stats.health >= active_player_stats.max_health: #If the player were to be overhealed
+			active_player_stats.health == active_player_stats.max_health #Set the player back to max possible health
+		text_box.text += "\n and through the power of healing light, they healed back " + str(heal_amt) #Message
+		
+		#Need logic to end the healing light condition, similar to that of fear
 	
 	#Sleep Logic
-	if active_player_stats.sleep:
-		var wake_chance = randi_range(0, 5)
-		if wake_chance == 0:
-			active_player_stats.sleep = false
-			text_box.text += "\n" + active_player.name + " woke up!"
+	if active_player_stats.sleep: #If player should be asleep
+		var wake_chance = randi_range(0, 5) #Define a value for a chance to wake up between 0 and 5
+		if wake_chance == 0: #If they roll a 0
+			active_player_stats.sleep = false #They wake up
+			text_box.text += "\n " + active_player.name + " woke up!" #and attention is called to this
 			
-		if active_player_stats.sleep:
-			command_menu.disable_menus()
-			text_box.text += "\n" + active_player.name + " is asleep!  They can't attack until the wake up!"
+		if active_player_stats.sleep: #If the player is still asleep after the above function, they rolled something other then a 0 and so
+			command_menu.disable_menus() #Disable the chance to choose something
+			text_box.text += "\n " + active_player.name + " is asleep!  They can't attack until the wake up!" #Add message saying why they can't move
 			
-			await get_tree().create_timer(3).timeout
+			await get_tree().create_timer(3).timeout #Wait 3 seconds
 			
-			turn_ready_check(false)
-			effects_processed.emit()
-			return
+			turn_ready_check(false) #Then send the player back to the turn change function so the next player can go
+			effects_processed.emit() #Emit the needed signal that would be missed since
+			return #we return here, ending the function early
 	
 		#Stun Logic
-	if active_player_stats.stun:
-		command_menu.disable_menus()
-		text_box.text = active_player.name + " is stunned!  Their turn is skipped!"
-		active_player.hero_stats.stun_disable()
+	if active_player_stats.stun: #If the player is stunned (note, can't be stunned and sleeped at the same time, or at least, stun won't show up if they are asleep)
+		command_menu.disable_menus() #Remove access to choose an option
+		text_box.text = " " + active_player.name + " is stunned!  Their turn is skipped!" #Message about why
+		active_player.hero_stats.stun_disable() #Reenable the menu through function on player resource
 		
-		await get_tree().create_timer(3).timeout
+		await get_tree().create_timer(3).timeout #wait 3 seconds
 		
-		effects_processed.emit()
+		effects_processed.emit() #Emit needed signal that would be missed since
 		#turn_ready_check(false) #Push to the next turn
-		return
+		return #We return here, ending the function early
 		#command_menu.enable_menus() #Reenable the menus for those after the stunned player
 	
-	if active_player_stats.defeated:
-		command_menu.disable_menus()
-		text_box.text = active_player.name + " was defeated, moving to next player..."
+	if active_player_stats.defeated:#If player is defeated
+		command_menu.disable_menus() #Disable the menus
+		text_box.text = " " + active_player.name + " was defeated, moving to next player..." #Replace all text with how they were defeated
 		
-		await get_tree().create_timer(3).timeout
+		await get_tree().create_timer(3).timeout #wait 3 seconds
 		
-		effects_processed.emit()
-		turn_ready_check(false)
-		return
+		effects_processed.emit() #Emit signal
+		turn_ready_check(false) #and send back to function because
+		return #return early, ending the function
 	
-	effects_processed.emit()
+	effects_processed.emit() #emit the signal at the end of this function to show all signals were processed.
 
 
 func speed_comparison(p1, p2): #Comparison function so the turn logic can sort simultaneous turns correctly
